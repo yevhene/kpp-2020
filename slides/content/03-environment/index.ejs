@@ -1,0 +1,433 @@
+<section>
+  <h1>Оточення</h1>
+  <h2>Лекція 3</h2>
+</section>
+
+<section>
+  <h2>Оточення</h2>
+
+  <section>
+    <h3>Оточення JavaScript</h3>
+
+    <ul>
+      <li>Браузерні</li>
+      <li>Загального призначення (node.js)</li>
+      <li>Настільні (Electron)</li>
+      <li>Headless (PhantomJS)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Глобальний об'єкт</h3>
+
+    <ul>
+      <li><b>window</b> - у браузері</li>
+      <li><b>global</b> - у node.js</li>
+    </ul>
+  </section>
+</section>
+
+<section>
+  <h2>Стандартна бібліотека</h2>
+
+  <section>
+    <h3>Вбудовані об'єкти</h3>
+
+    <ul>
+      <li>Math</li>
+      <li>JSON</li>
+      <li>Number</li>
+      <li>Array</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Вивід</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+console.log('Hello World');
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Браузер</h2>
+</section>
+
+<section>
+  <h2>Hello World!</h2>
+
+  <pre><code class="javascript" data-trim>
+&lt;script&gt;
+  document.write('Hello World!');
+&lt;/script&gt;
+  </code></pre>
+</section>
+
+<section>
+  <h2>Модулі</h2>
+
+  <section>
+    <h3>Експорт</h3>
+
+    <pre><code class="javascript" data-trim>
+export function one() {
+  ...
+}
+
+export default function two() {
+  ...
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Імпорт</h3>
+
+    <pre><code class="javascript" data-trim>
+import two, { one } from 'my_module';
+    </code></pre>
+
+    <pre><code class="javascript" data-trim>
+import second, { one as first } from 'my_module';
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>node.js</h2>
+
+  <section>
+    <p>це JavaScript–оточення побудоване на JavaScript–рушієві V8 (що розроблявся для браузера Google Chrome)</p>
+  </section>
+
+  <section>
+    <p>Node.js використовує подієву, неблокуючу I/O модель, що робить його легким та ефективним. Пакетна екосистема Node.js, npm, є найбільшою у світі екосистемою бібліотек з відкритим кодом.</p>
+  </section>
+</section>
+
+<section>
+  <h2>Цикл подій (Event loop)</h2>
+
+  <section>
+    <img src="images/event-loop.png">
+  </section>
+
+  <section>
+    <ul>
+      <li><b>timers</b> - спрацьовують setTimeout і setInterval</li>
+      <li><b>I/O callbacks</b> - майже всі зворотні виклики</li>
+      <li><b>idle, prepare</b> - внутрішні</li>
+      <li><b>poll</b> - опитування нових подій</li>
+      <li><b>check</b> - спрацьовують setImmediate</li>
+      <li><b>close callbacks</b> - спрацьовують закриття з'єднань</li>
+    </ul>
+  </section>
+</section>
+
+<section>
+  <h2>Початок</h2>
+
+  <section>
+    <h3>Інсталяція</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+$ sudo apt install nodejs
+    </code></pre>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+$ brew install node
+    </code></pre>
+
+    <a href="https://nodejs.org">nodejs</a>
+  </section>
+
+  <section>
+    <h3>Hello World!</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+console.log('Hello World');
+    </code></pre>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+$ node app.js
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Вбудовані пакети node.js</h2>
+
+  <section>
+    <h3>path</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const path = require('path');
+
+const currentPath = path.join(__dirname, 'app.js');
+
+console.log(currentPath);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>fs</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const fs = require('fs');
+
+const content = fs.readFileSync('app.js', 'utf8');
+
+console.log(content);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>fs (async)</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const fs = require('fs');
+
+fs.readFile('app.js', 'utf8', function(err, content) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log(content);
+  }
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>readline</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+rl.question('What do you think of Node.js? ', function(answer) {
+  console.log('Thank you for your valuable feedback: ' + answer);
+
+  rl.close();
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>http</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const http = require('http');
+
+const server = http.createServer(function(req, res) {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.write('Hello World');
+  res.end();
+});
+
+server.listen(3000);
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Власний модуль</h2>
+
+  <section>
+    <i>mul.js</i>
+    <pre><code class="javascript hljs" data-trim contenteditable>
+module.exports = function(a, b) {
+  return a * b;
+};
+    </code></pre>
+
+    <i>app.js</i>
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const mul = require('./mul');
+
+console.log(mul(2, 4)); //=&gt; 8
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Експорт декількох функцій</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+module.exports.mul = function(a, b) {
+  return a * b;
+};
+
+module.exports.sqr = function(n) {
+  return module.exports.mul(n, n);
+};
+    </code></pre>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+var calc = require('./calc');
+
+console.log(calc.sqr(2)); //=&gt; 4
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>npm</h2>
+
+  <section>
+    <h3>node package manager</h3>
+  </section>
+
+  <section>
+    <h3>Створення нового проекту</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+$ npm init
+    </code></pre>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+package name: (lab-2)
+version: (1.0.0)
+description:
+entry point: (index.js)
+test command:
+git repository:
+keywords:
+author:
+license: (ISC)
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>package.json</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+{
+  "name": "kpp",
+  "version": "1.0.0",
+  "description": "KPP",
+  "main": "app.js",
+  "repository": "git@github.com:yevhene/kpp.git",
+  "author": "Yevhen Shemet &lt;yevhene@gmail.com&gt;",
+  "scripts": {
+    "start": "node app/app"
+  },
+  "dependencies": {
+    "express": "~4.14.0"
+  },
+  "license": "MIT"
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Залежності (semver)</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+{
+  ...,
+  "dependencies": {
+    "express": "~4.14.0",
+    "body-parser": "^1.18.1",
+    "react": "=0.16-beta",
+    "forever": "https://github.com/indexzero/forever"
+  },
+  "devDependencies": {
+    "jest": "&gt;=21.2.0",
+    "kpp": "yevhene/kpp",
+    "lab-2": "../lab-2"
+  }
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Встановлення залежностей</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+$ npm install
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Додавання залежностей</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+$ npm install --save express
+    </code></pre>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+$ npm install --save-dev express
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Запуск скриптів</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+$ npm run hello
+    </code></pre>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+$ npm start
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>package-lock.json</h3>
+
+    <p>Зафіксовані версії залежностей</p>
+  </section>
+
+  <section>
+    <img src="images/node-modules.jpg" />
+  </section>
+</section>
+
+<section>
+  <h2>Корисні npm пакети для node.js</h2>
+
+  <section>
+    <h3>readline-sync</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const readlineSync = require('readline-sync');
+
+const userName = readlineSync.question('May I have your name? ');
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>blessed</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const blessed = require('blessed');
+
+const screen = blessed.screen({
+  smartCSR: true
+});
+
+const icon = blessed.image({
+  parent: screen,
+  top: 0,
+  left: 0,
+  file: __dirname + '/my-program-icon.png',
+});
+
+screen.render();
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>awesome ...</h3>
+
+    <a href="http://node.cool">node.cool</a>
+  </section>
+</section>
+
+<section>
+  <h2>Питання?</h2>
+</section>

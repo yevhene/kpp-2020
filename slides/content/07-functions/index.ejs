@@ -1,0 +1,480 @@
+<section>
+  <h1>Функції</h1>
+  <h2>Лекція 7</h2>
+</section>
+
+<section>
+  <h2>Функції</h2>
+
+  <section>
+    <h3>Декларація</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function hello() {
+  console.log('hello');
+}
+
+hello(); //&gt; hello
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Як дані</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const hello = function() {
+  console.log('hello');
+}
+
+hello(); //&gt; hello
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Змінна</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function hello() {
+  console.log('hello');
+}
+
+hello = function() {
+  console.log('world');
+}
+
+hello(); //&gt; world
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Параметри і аргументи</h2>
+
+  <section>
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function hello(name) {
+  console.log('hello ' + name);
+}
+
+hello('myself'); //&gt; hello myself
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Кількість аргументів</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function enroll(student, course) {
+  /*...*/
+}
+
+enroll.length; //=&gt; 2
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Контроль кількісті аргументів</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function inspect(student) {
+  console.log(student);
+}
+
+inspect(); //&gt; undefined
+inspect(1, 2, 3); //&gt; 1
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Значення за замовчуванням<small><sup>(ES6)</sup></small></h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function hello(name = 'Vasya') {
+  console.log('hello ' + name);
+}
+
+hello('myself'); //&gt; hello myself
+hello(); //&gt; hello Vasya
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Змінна кількість аргументів (rest)<small><sup>(ES6)</sup></small></h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function helloAll(...students) {
+  for (let student of students) {
+    console.log('Hello', student);
+  }
+}
+
+helloAll('Vasya', 'Petya');
+//&gt; Hello Vasya
+//&gt; Hello Petya
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Розплющення (spread)<small><sup>(ES6)</sup></small></h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function helloAll(...students) {
+  console.log('Hello', ...students);
+}
+
+helloAll('Vasya', 'Petya'); //&gt; Hello Vasya Petya
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>По старому стилю</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function helloAll() {
+  for (let i = 0; i &gt; arguments.length; i++) {
+    console.log('Hello', arguments[i]);
+  }
+}
+
+helloAll('Vasya', 'Petya');
+//&gt; Hello Vasya
+//&gt; Hello Petya
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Вирази у аргументах по замовчуванню<small><sup>(ES6)</sup></small></h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function setMark(student, mark = defaultMark()) {
+  console.log(student, 'achieved mark:', mark);
+}
+
+function defaultMark() {
+  return 'три бала';
+}
+
+setMark('Vasyl')
+//&gt; Vasyl achieved mark: три бала
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Спеціальний виклик</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function helloAll() {
+  console.log.apply(null, arguments)
+}
+
+helloAll.call(null, 'Vasyl', 'Petro');
+helloAll.apply(null, ['Vasyl', 'Petro']);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Прив'язування аргументів (bind)</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function add(a, b) {
+  return a + b;
+}
+
+const add2 = add.bind(null, 2);
+add2(3); //=&gt; 5
+add(1, 6); //=&gt; 7
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Скорочений запис (=&gt;)<small><sup>(ES6)</sup></small></h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const hello = () =&gt; console.log('hello');
+const helloStudent = student =&gt; console.log('hello', student);
+const helloAll = (...students) =&gt; {
+  console.log('Hello', ...students);
+  console.log('Glad to see you')
+};
+
+helloAll('Vasya', 'Petro');
+//&gt; Hello Vasya Petro
+//&gt; Glad to see you
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Замикання (closures)</h2>
+
+  <section>
+    <p>Замикання - це функції, що посилаються на незалежні (вільні) змінні (змінні, які використовуються локально, але визначені в обмеженій області видимості). Іншими словами, ці функції "пам'ятають" (лексичне) середовище, в якому вони були створені.</p>
+  </section>
+
+  <section>
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function prepareGreet(student) {
+  const title = 'Dear ' + student;
+
+  return function(greeting) {
+    console.log(title, greeting);
+  };
+}
+
+const greet = prepareGreet('Vasyl');
+greet('you have три бала');
+//&gt; Dear Vasyl you have три бала
+    </code></pre>
+  </section>
+
+  <section>
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function newCounter(init = 0) {
+  let count = init;
+
+  return {
+    inc: () =&gt; count++
+  };
+}
+
+const counter = newCounter(7);
+counter.inc(); //=&gt; 8
+
+const anotherCounter = newCounter();
+anotherCounter.inc(); //=&gt; 1
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Звотротні виклики</h2>
+
+  <section>
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function greetStudent(nameCallback) {
+  const name = nameCallback();
+  console.log('Greeting', name);
+}
+
+greetStudent(function() {
+  return 'Dmytro';
+})
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Таймер</h3>
+
+    <p>Виведе 'Hello World' через 1 секунду</p>
+    <pre><code class="javascript hljs" data-trim contenteditable>
+setTimeout(function() {
+  console.log('Hello World!');
+}, 1000);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Таймер з повторенням</h3>
+
+    <p>Кожної секунди буде виводити 'Hello World'</p>
+    <pre><code class="javascript hljs" data-trim contenteditable>
+setInterval(function() {
+  console.log('Hello World!');
+}, 1000)
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Функції вищого порядку</h3>
+
+    <p>every/some</p>
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const arr = [1, 2, 3];
+arr.some(e =&gt; e === 2); //=&gt; true
+arr.every(e =&gt; e === 2); //=&gt; false
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Функції вищого порядку</h3>
+
+    <p>map</p>
+    <pre><code class="javascript hljs" data-trim contenteditable>
+let arr = [1, 2, 3];
+arr = arr.map(e =&gt; e * 2);
+arr; //=&gt; 2, 4, 6
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Функції вищого порядку</h3>
+
+    <p>reduce</p>
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const arr = [1, 2, 3];
+arr.reduce((acc, e) =&gt; acc + e); //=&gt; 6
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h3>function scope</h3>
+
+  <section>
+    <h3>Цикли (проблема)</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const funcs = [];
+for (var i = 0; i &lt; 3; i++) {
+  funcs[i] = function() {
+    console.log(i);
+  };
+}
+for (var j = 0; j &lt; 3; j++) {
+  funcs[j]();
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Фабрика</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function createFunction(i) {
+  return function() {
+    console.log(i);
+  };
+}
+
+const funcs = [];
+for (var i = 0; i &lt; 3; i++) {
+  funcs[i] = createFunction(i);
+}
+for (var j = 0; j &lt; 3; j++) {
+  funcs[j]();
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>IIFE</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const funcs = [];
+for (var i = 0; i &lt; 3; i++) {
+  funcs[i] = (function(j) {
+    return function() {
+      console.log(j);
+    };
+  }(i));
+}
+for (var j = 0; j &lt; 3; j++) {
+  funcs[j]();
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>let<small><sup>(ES6)</sup></small></h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const funcs = [];
+for (let i = 0; i &lt; 3; i++) {
+  funcs[i] = function() {
+    console.log(i);
+  };
+}
+for (let j = 0; j &lt; 3; j++) {
+  funcs[j]();
+}
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>ES6</h2>
+
+  <section>
+    <h4>Аргументи за замовчуванням (default)</h4>
+    <pre><code class="javascript" data-trim>
+function hello(name = 'студент') {
+  alert(`Привіт ${name}`);
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Змінна кількість аргументів (rest)</h4>
+    <pre><code class="javascript" data-trim>
+function f(x, ...y) {
+  // y - масив
+  return x * y.length;
+}
+
+f(3, 'second', true) // =&gt; 6
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Розгортування аргументів (spread)</h4>
+    <pre><code class="javascript" data-trim>
+function f(x, y, z) {
+  return x + y + z;
+}
+
+f(...[1,2,3]) // =&gt; 6
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Деструкція аргументів</h4>
+    <pre><code class="javascript" data-trim>
+const student = {
+  personal: {
+    name: 'Василь'
+  },
+  group: 'КН'
+}
+
+function info({ personal: { name }, group }) {
+  return `${name} з ${group}`;
+}
+
+info(student); //=&gt; `Василь з КН`
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Стрілочна функція</h4>
+    <pre><code class="javascript" data-trim>
+function inc(n) {
+  return n + 1;
+}
+
+const inc1 = n =&gt; n + 1;
+
+const add = (a, b) =&gt; {
+  return a + b;
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Хвостова рекурсія (tail recursion)</h4>
+    <pre><code class="javascript" data-trim>
+function bin(a, n) {
+  if (n == 0) {
+    return a;
+  } else {
+    return bin(a * 2, n);
+  }
+}
+
+bin(3, 2) // =&gt; 12
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Питання?</h2>
+</section>

@@ -1,0 +1,340 @@
+<section>
+  <h1>Асинхронність</h1>
+  <h2>Лекція 13</h2>
+</section>
+
+<section>
+  <h2>Асинхронні функції</h2>
+
+  <section>
+    <h3>Приклад</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+async function userAddress(req, res) {
+  const user = await User.findById(req.userId);
+  const address = await Address.findById(user.addressId);
+
+  const html = await jade.renderFile('address.jade', { address }));
+  res.send(html));
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Використання</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+userAddress(req, res)
+  .then(/*...*/)
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Більше прикладів</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+function resolveAfter2Seconds(x) {
+  return new Promise(resolve =&gt; {
+    setTimeout(() =&gt; {
+      resolve(x);
+    }, 2000);
+  });
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Послідовно</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+async function add2(x) {
+  var a = await resolveAfter2Seconds(20);
+  var b = await resolveAfter2Seconds(30);
+  return x + a + b;
+}
+
+add2(10).then(v =&gt; {
+  console.log(v);  // prints 60 after 4 seconds.
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Паралельно</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+async function add1(x) {
+  var a = resolveAfter2Seconds(20);
+  var b = resolveAfter2Seconds(30);
+  return x + await Promise.all([a, b]);
+}
+
+add1(10).then(v =&gt; {
+  console.log(v);  // prints 60 after 2 seconds.
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Переваги/Недоліки</h3>
+
+    <ul>
+      <li>+ Всі бонуси генераторів і обіцянок</li>
+      <li>+ Підтримка на рівні мови</li>
+      <li>- Важкі в тестуванні</li>
+    </ul>
+  </section>
+</section>
+
+<section>
+  <h2>Асинхронна ітерація<small>ES2018</small></h2>
+
+  <section>
+    <h3>Приклад завантаження</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+async function getResponseSize(url) {
+  const response = await fetch(url);
+  const reader = response.body.getReader();
+  let total = 0;
+
+  while (true) {
+    const {done, value} = await reader.read();
+    if (done) return total;
+    total += value.length;
+  }
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Асинхронний ітератор</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+async function example() {
+  // Regular iterator:
+  const iterator = createNumberIterator();
+  iterator.next(); // Object {value: 1, done: false}
+  iterator.next(); // Object {value: 2, done: false}
+  iterator.next(); // Object {value: 3, done: false}
+  iterator.next(); // Object {value: undefined, done: true}
+
+  // Async iterator:
+  const asyncIterator = createAsyncNumberIterator();
+  const p = asyncIterator.next(); // Promise
+  await p;                    // Object {value: 1, done: false}
+  await asyncIterator.next(); // Object {value: 2, done: false}
+  await asyncIterator.next(); // Object {value: 3, done: false}
+  await asyncIterator.next(); // Object {value: undefined, done: true}
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Асинхронний цикл</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+async function example() {
+  // Regular iterator:
+  for (const item of thing) {
+    // …
+  }
+
+  // Async iterator:
+  for await (const item of asyncThing) {
+    // …
+  }
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Асинхронний цикл</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+async function example() {
+  const arrayOfFetchPromises = [
+    fetch('1.txt'),
+    fetch('2.txt'),
+    fetch('3.txt')
+  ];
+
+  // Regular iterator:
+  for (const item of arrayOfFetchPromises) {
+    console.log(item); // Logs a promise
+  }
+
+  // Async iterator:
+  for await (const item of arrayOfFetchPromises) {
+    console.log(item); // Logs a response
+  }
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Приклад асинхронної ітерації</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+async function getResponseSize(url) {
+  const response = await fetch(url);
+  let total = 0;
+
+  for await (const chunk of response.body) {
+    total += chunk.length;
+  }
+  return total;
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Протокол</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+interface AsyncIterable {
+    [Symbol.asyncIterator]() : AsyncIterator;
+}
+interface AsyncIterator {
+    next() : Promise<IteratorResult>;
+}
+interface IteratorResult {
+    value: any;
+    done: boolean;
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Створення асинхронного ітератора</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+// Note the * after "function"
+async function* asyncRandomNumbers() {
+  // This is a web service that returns a random number
+  const url = 'https://www.random.org/decimal-fractions/?num=1&amp;dec=10&amp;col=1&format=plain&rnd=new';
+
+  while (true) {
+    const response = await fetch(url);
+    const text = await response.text();
+    yield Number(text);
+  }
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Приклад роботи</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+async function example() {
+  for await (const number of asyncRandomNumbers()) {
+    console.log(number);
+    if (number &gt; 0.95) break;
+  }
+}
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>koa.js</h2>
+
+  <section>
+    <h3>Простий приклад</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+const Koa = require('koa');
+const app = new Koa();
+
+app.use(async ctx =&gt; {
+  ctx.body = 'Hello World';
+});
+
+app.listen(3000);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Проміжні обробники (middleware)</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+const Koa = require('koa');
+const app = new Koa();
+
+// logger
+app.use(async (ctx, next) =&gt; {
+  const start = Date.now();
+  await next();
+  const ms = Date.now() - start;
+  console.log(`${ctx.method} ${ctx.url} - ${ms}`);
+});
+
+// response
+app.use(async ctx =&gt; {
+  ctx.body = 'Hello World';
+});
+
+app.listen(3000);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Бібліотеки</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+const logger = require('koa-logger');
+const router = require('koa-router')();
+const koaBody = require('koa-body');
+
+const Koa = require('koa');
+const app = module.exports = new Koa();
+
+app.use(logger());
+app.use(render);
+app.use(koaBody());
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Маршрутизатор</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+router
+  .get('/posts', list)
+  .get('/posts/:id', show)
+  .post('/posts', create);
+
+app.use(router.routes());
+    </code></pre>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+async function list(ctx) {
+  await ctx.render('list', { posts: posts });
+}
+
+async function show(ctx) {
+  const id = ctx.params.id;
+  const post = posts[id];
+  if (!post) ctx.throw(404, 'invalid post id');
+  await ctx.render('show', { post: post });
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Пакети</h3>
+
+    <a href="https://github.com/koajs/koa/wiki">https://github.com/koajs/koa/wiki</a>
+  </section>
+</section>
+
+<section>
+  <h2>Література</h2>
+
+  <a href="https://jakearchibald.com/2017/async-iterators-and-generators/">https://jakearchibald.com/2017/async-iterators-and-generators/</a>
+</section>
+
+<section>
+  <h2>Питання?</h2>
+</section>

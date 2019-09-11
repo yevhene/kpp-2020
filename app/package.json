@@ -1,0 +1,20 @@
+{
+  "name": "kpp-app",
+  "version": "1.0.0",
+  "description": "KPP Base App",
+  "main": "app.js",
+  "repository": "git@github.com:yevhene/kpp.git",
+  "author": "Yevhen Shemet <yevhene@gmail.com>",
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "github-markdown-css": "^3.0.1",
+    "glob": "^7.1.4",
+    "marked": "^0.7.0",
+    "slides": "./slides"
+  },
+  "license": "MIT"
+}

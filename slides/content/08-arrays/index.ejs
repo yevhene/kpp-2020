@@ -1,0 +1,115 @@
+<section>
+  <h1>Масиви</h1>
+  <h2>Лекція 8</h2>
+</section>
+
+<section>
+  <h2>Ітератори</h2>
+
+  <section>
+    <pre><code class="hljs javascript" data-trim contenteditable>
+const array = [1, 2, 3];
+
+// Ітеруюча функція
+const newIterator = array[Symbol.iterator];
+
+// Створення нового ітератора
+const iterator = newIterator();
+
+// Розгортування ітератора
+iterator.next() //=&gt; {value: 1, done: false}
+iterator.next() //=&gt; {value: 2, done: false}
+iterator.next() //=&gt; {value: 3, done: false}
+iterator.next() //=&gt; {value: undefined, done: true}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Конкуруючі ітератори</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+const array = [1, 2, 3];
+const newIterator = array[Symbol.iterator];
+
+const iterator = newIterator();
+iterator.next() //=&gt; {value: 1, done: false}
+iterator.next() //=&gt; {value: 2, done: false}
+iterator.next() //=&gt; {value: 3, done: false}
+iterator.next() //=&gt; {value: undefined, done: true}
+
+const iterator1 = newIterator();
+iterator1.next() //=&gt; {value: 1, done: false}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Створення ітеруючої функції</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+const obj = {};
+obj[Symbol.iterator] = function() {
+  return {
+    counter: 0,
+    done: false,
+    next: function() {
+      if (this.counter &lt; 3) {
+        this.counter++;
+        return { value: this.counter };
+      } else {
+        return { done: true };
+      }
+    }
+  };
+};
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>for..of</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+for (let e of obj) {
+  console.log(e);
+}
+//&gt; 1
+//&gt; 2
+//&gt; 3
+    </code></pre>
+
+    <p>Приймає будь-який об'єкт у якого є властивість <i>Symbol.iterator</i>.</p>
+  </section>
+
+  <section>
+    <h3>spread (...)</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+[...obj]; //=&gt; [1, 2, 3]
+    </code></pre>
+
+    <p>Приймає будь-який об'єкт у якого є властивість <i>Symbol.iterator</i>.</p>
+  </section>
+
+  <section>
+    <h3>Протоколи Ітераторів</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+interface Iterable {
+  [Symbol.iterator]() : Iterator;
+}
+interface Iterator {
+  next() : IteratorResult;
+  return?(value? : any) : IteratorResult;
+}
+interface IteratorResult {
+  value : any;
+  done : boolean;
+}
+    </code></pre>
+
+    <p>Iterator зазвичай також реалізує Iterable і повертає себе.</p>
+  </section>
+</section>
+
+<section>
+  <h2>Питання?</h2>
+</section>

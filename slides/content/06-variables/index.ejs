@@ -1,0 +1,372 @@
+<section>
+  <h1>Змінні</h1>
+  <h2>Лекція 6</h2>
+</section>
+
+<section>
+  <h2>Область видимості (scope)</h2>
+  <p>Набір правил, за якими рушій може знайти змінну у цій області видимості або тих областях видимості що її містять.</p>
+</section>
+
+<section>
+  <h2>Виконання коду</h2>
+
+  <section>
+    <h3>Дійові особи</h3>
+
+    <ul>
+      <li>Компілятор (Compiler) - Готує программу для виконання;</li>
+      <li>Рушій (Engine) - Виконує програму;</li>
+      <li>Область видимості (Scope) - Консультує рушій що до змінних.</li>
+    </ul>
+  </section>
+</section>
+
+<section>
+  <h2>Компіляція коду</h2>
+
+  <section>
+    <h3>Tokenizing/Lexing</h3>
+
+    <img src="images/tokens.png" />
+  </section>
+
+  <section>
+    <h3>Parsing</h3>
+
+    <p>Abstract Syntax Tree (AST)</p>
+    <img src="images/ast.jpg" />
+  </section>
+</section>
+
+<section>
+  <h2>Лексична область видимості</h2>
+
+  <section>
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function foo(a) {
+  var b = a * 2;
+
+  function bar(c) {
+    console.log(a, b, c);
+  }
+
+  bar(b * 3);
+}
+
+foo(2); //&gt; 2, 4, 6
+    </code></pre>
+  </section>
+
+  <section>
+    <img src="images/nested-scope.png" />
+  </section>
+</section>
+
+<section>
+  <h2>function scope</h2>
+
+  <section>
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function foo() {
+  var a = 3;
+  console.log(a); //&gt; 3
+}
+
+foo();
+console.log(a); //!&gt; ReferenceError: a is not defined
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Перекриття (shadowing)</h3>
+    <pre><code class="javascript hljs" data-trim contenteditable>
+var a = 2;
+
+function foo() {
+  var a = 3;
+  console.log(a); //&gt; 3
+}
+
+foo();
+console.log(a); //&gt; 2
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Перезаписування</h3>
+    <pre><code class="javascript hljs" data-trim contenteditable>
+var a = 2;
+
+function foo() {
+  a = 3;
+  console.log(a); //&gt; 3
+}
+
+foo();
+console.log(a); //&gt; 3 - ?
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Витікання (leaking)</h3>
+    <pre><code class="javascript hljs" data-trim contenteditable>
+var a = 2;
+
+function foo() {
+  b = 3;
+  console.log(b); //&gt; 3
+}
+
+foo();
+console.log(a); //&gt; 2
+console.log(b); //&gt; ?
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>use strict</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+"use strict";
+var a = 2;
+
+function foo() {
+  b = 3; //!&gt; ReferenceError: b is not defined
+  console.log(b);
+}
+
+foo();
+console.log(a);
+console.log(b);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Передекларація</h3>
+    <pre><code class="javascript hljs" data-trim contenteditable>
+var user = "Vasya";
+console.log(user); //&gt; Vasya
+
+// ...
+
+var user = {id: 1};
+console.log(user); //&gt; {id: 1}
+
+// ...
+
+console.log(user); //&gt; {id: 1}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>IIFE: Immediately Invoked Function Expression</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+var user = "Vasya";
+console.log(user); //&gt; Vasya
+
+// ...
+
+(function() {
+  var user = {id: 1};
+  console.log(user); //&gt; {id: 1}
+}());
+
+// ...
+
+console.log(user); //&gt; Vasya
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Вспливання (hoisting)</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function foo() {
+  a = 2;
+  var a;
+  console.log(a); //&gt; ?
+}
+
+foo();
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Вспливання (hoisting)</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+if (typeof window !== 'undefined') {
+  var a = 8;
+  console.log(a);
+}
+
+var a;
+console.log(a); //&gt; ?
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Вспливання функцій (hoisting)</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+var a = 8;
+function a() {}
+console.log(a); //&gt; ?
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Спеціальні випадки</h2>
+
+  <section>
+    <h3>eval</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function foo(str, a) {
+  eval(str);
+  console.log(a, b);
+}
+var b = 2;
+foo("var b = 3;", 1); //&gt; 1, 3
+    </code></pre>
+
+    <p>Проблеми з продуктивністю</p>
+  </section>
+
+  <section>
+    <h3>try/catch</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+try {
+  throw 'Error';
+} catch(e) {
+  console.log(e); //!&gt; Error
+}
+
+console.log(e); //!&gt; ReferenceError: e is not defined
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>with</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+var obj = {
+  a: 1,
+  b: 2,
+};
+
+obj.a = 2;
+obj.b = 3;
+obj.c = 4;
+
+with (obj) {
+  a = 3;
+  b = 4;
+  c = 5;
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>with (problems)</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function foo(obj) {
+  with (obj) {
+    a = 2;
+  }
+}
+
+var o1 = { a: 3 };
+var o2 = { b: 3 };
+
+foo(o1);
+console.log(o1.a); //&gt; 2
+
+foo(o2);
+console.log(o2.a); //&gt; undefined
+console.log(a); //&gt; 2 - leaked global!
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>block scope<small><sup>(ES6)</sup></small></h2>
+
+  <section>
+    <h3>let</h3>
+  </section>
+
+  <section>
+    <pre><code class="javascript hljs" data-trim contenteditable>
+{
+  let a = 8;
+}
+
+console.log(a); //!&gt; ReferenceError: a is not defined
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Повторна декларація (заборонена)</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+let user = "Vasya";
+console.log(user); //&gt; Vasya
+
+// ...
+
+let user = {id: 1}; //!&gt; SyntaxError: Identifier 'user' has already been declared
+console.log(user);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Затирання в рамках блоку</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+let a = 9;
+
+if (typeof window !== 'undefined') {
+  let a = 8;
+  console.log(a);
+}
+
+console.log(a); //&gt; 9
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>const</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const a = 8;
+a = 9; //!&gt; TypeError: Assignment to constant variable.
+
+console.log(a);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Temporal Dead Zone</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+a = 8;
+let a;
+console.log(a); //!&gt; ReferenceError: a is not defined
+    </code></pre>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+a = 8;
+console.log(a); //&gt; 8
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Питання?</h2>
+</section>

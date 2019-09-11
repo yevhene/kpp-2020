@@ -1,0 +1,472 @@
+<section>
+  <h1>Прототипи</h1>
+  <h2>Лекція 10</h2>
+</section>
+
+<section>
+  <h2>Конструктор</h2>
+
+  <section>
+    <h3>Створення об'єкту</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function Animal(kind) {
+  this.kind = kind;
+  this.legs = 4;
+}
+
+const cow = new Animal('Корова');
+cow.legs; // 4
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Ігнорується значення return</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function Animal(kind) {
+  this.kind = kind;
+  return 8;
+  this.legs = 4;
+}
+
+const cow = new Animal('Корова');
+cow.kind; // Корова
+cow.legs; // undefined
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Зв'язок з конструктором</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function Animal(kind) {
+  this.kind = kind;
+  this.legs = 4;
+}
+
+const cow = new Animal('Корова');
+cow.constructor === Animal; // true
+cow instanceof Animal; // true
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Конструктор це функція</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function Animal(kind) {
+  this.kind = kind;
+  this.legs = 4;
+}
+
+let dog = {};
+Animal.call(dog, 'Собака');
+
+dog.kind; // Собака
+dog.constructor === Object; // true (!)
+
+dog.constructor = Animal;
+dog instanceof Animal; // false (!)
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Прототип</h2>
+
+  <section>
+    <h3>Object.setPrototypeOf</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const cow = {
+  kind: 'Корова',
+  legs: 4
+};
+
+const dog = {
+  kind: 'Собака'
+};
+
+Object.setPrototypeOf(dog, cow)
+
+dog.legs; // 4
+cow.kind; // 'Корова'
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Object.create</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const cow = {
+  kind: 'Корова',
+  legs: 4
+};
+const dog = Object.create(cow);
+dog.kind = 'Собака';
+
+dog.legs; // 4
+cow.kind; // 'Корова'
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Методи</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const cow = {
+  kind: 'Корова',
+  legs: 4,
+  say: function() {
+    console.log('Му-у')
+  }
+};
+
+const dog = Object.create(cow);
+dog.kind = 'Собака';
+
+dog.legs; // 4
+dog.say();
+// Му-у
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Перекриття методів</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const cow = {
+  kind: 'Корова',
+  legs: 4,
+  say: function() {
+    console.log('Му-у')
+  }
+};
+
+const dog = Object.create(cow);
+dog.kind = 'Собака';
+dog.say = function() {
+  console.log('Гав');
+}
+
+dog.say();
+// Гав
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Посилання на прототип</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const cow = {
+  ...
+};
+
+const dog = Object.create(cow);
+
+dog.__proto__ === cow; //=&gt; true
+Object.getPrototypeOf(dog) === cow; //=&gt; true
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Прототипи і Конструктори</h2>
+
+  <section>
+    <h3>Кожна функція має прототип</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function Rabbit() {}
+
+Rabbit.prototype //=&gt; { constructor: f }
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>При створенні встановлюється __proto__</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function Rabbit() {}
+
+Rabbit.prototype //=&gt; { constructor: f }
+
+const rabbit = new Rabbit();
+rabbit.__proto__ === Rabbit.prototype //=&gt; true
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Додавання методів</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function Animal(kind, voice) {
+  this.kind = kind;
+  this.voice = voice;
+  this.legs = 4;
+}
+
+Animal.prototype.say = function() {
+  console.log(this.voice);
+};
+
+const cow = new Animal('Корова', 'Му-у');
+cow.say(); //&gt; Му-у
+cow.__proto__ === Animal.prototype //=&gt; true
+cow.__proto__ //=&gt; {say: ƒ, constructor: ƒ}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Приорітет</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function Animal(kind, voice) {
+  this.kind = kind;
+  this.voice = voice;
+  this.say = function() {
+    console.log('Добрий вечір');
+  }
+}
+
+Animal.prototype.say = function() {
+  console.log(this.voice);
+};
+
+const cow = new Animal('Корова', 'Му-у');
+cow.say() //=&gt; Добрий вечір
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>instanceof</h3>
+
+    <p>Приймає конструктор та порівнює прототипи</p>
+    <pre><code class="javascript hljs" data-trim contenteditable>
+cow.__proto__ == Cow.prototype //=&gt;
+cow instanceof Cow //=&gt; true
+
+cow instanceof Animal //=&gt; true
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Розрив зв'язку (через заміну прототипу)</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function Animal(kind, voice) {
+  this.kind = kind;
+  this.voice = voice;
+  this.legs = 4;
+}
+
+Animal.prototype = {
+  say: function() {
+    console.log(this.voice);
+  }
+};
+
+const cow = new Animal('Корова', 'Му-у');
+cow.__proto__ === Animal.prototype //=&gt; true
+cow.constructor //=&gt; Object (!)
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Конструювання об'єкта</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function Animal(kind) {
+  this.kind = kind;
+  this.legs = 4;
+}
+
+let dog = {};
+Animal.call(dog, 'Собака');
+
+Object.setPrototypeOf(dog, Animal.prototype);
+//dog.__proto__ = Animal.prototype;
+
+dog.kind //=&gt; Собака
+dog instanceof Animal //=&gt; true
+dog.constructor === Animal //=&gt; true
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Object.create</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function Animal(kind) {
+  this.kind = kind;
+  this.legs = 4;
+}
+
+const ostrich = Object.create(Animal.prototype, {
+  kind: { value: 'Страус', writable: false },
+  legs: { value: 2 }
+});
+
+ostrich.legs //=&gt; 2
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Наслідування</h2>
+
+  <section>
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function Animal() {
+  this.legs = 4;
+}
+Animal.prototype.say = function() {
+  console.log('Добрий вечір');
+}
+
+function Cow() {}
+Cow.prototype = new Animal();
+Cow.prototype.constructor = Cow;
+Cow.prototype.say = function() {
+  console.log('Му-у');
+};
+
+const cow = new Cow();
+cow.say(); //=&gt; Му-у
+cow.__proto__; //=&gt; Animal {constructor: ƒ, say: ƒ}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Схема</h3>
+
+    <img src="images/prototype-inheritance.png" />
+  </section>
+
+  <section>
+    <h3>Схема (дороблена)</h3>
+
+    <img src="images/prototype-inheritance-instances.png" />
+  </section>
+
+  <section>
+    <h3>Схема (__proto__)</h3>
+
+    <img src="images/prototype-inheritance-functions.png" />
+  </section>
+</section>
+
+<section>
+  <h2>class</h2>
+
+  <section>
+    <h3>Новий синтаксис</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+class Animal {
+  constructor() {
+    this.legs = 4;
+  }
+
+  say() {
+    console.log('Добрий вечір');
+  }
+}
+
+class Cow extends Animal {
+  say() {
+    console.log('Му-у');
+  }
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Це просто синтаксис</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+class Cow extends Animal {
+  say() {
+    console.log('Му-у');
+  }
+}
+
+const cow = new Cow();
+cow.__proto__; //=&gt; Animal {constructor: ƒ, say: ƒ}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>super (constructor)</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+class Animal {
+  constructor() {
+    this.legs = 4;
+    this.head = 1;
+  }
+}
+
+class Ostrich extends Animal {
+  constructor() {
+    super();
+    this.legs = 2;
+  }
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>super</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+class Animal {
+  say() {
+    console.log('Добрий вечір');
+  }
+}
+
+class Fox extends Animal {
+  say() {
+    super.say();
+    console.log('???');
+  }
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>static</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+class Animal {
+  static say() {
+    console.log('Добрий вечір');
+  }
+}
+
+Animal.say(); //&gt; Добрий вечір
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Бонуси</h3>
+
+  <ul>
+    <li>Контролює щоб не було передекларації класу.</li>
+  </ul>
+  </section>
+</section>
+
+<section>
+  <h2>Посилання</h2>
+
+  <ul>
+    <li><a href="http://kenneth-kin-lum.blogspot.com/2012/10/javascripts-pseudo-classical.html">JavaScript's Pseudo Classical Inheritance diagram (Kenneth Kin Lum's Blog)</a></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Питання?</h2>
+</section>

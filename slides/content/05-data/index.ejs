@@ -1,0 +1,378 @@
+<section>
+  <h1>Дані</h1>
+  <h2>Лекція 5</h2>
+</section>
+
+<section>
+  <h2>Типи</h2>
+
+  <section>
+    <ul>
+      <li>boolean</li>
+      <li>number</li>
+      <li>string</li>
+      <li>undefined</li>
+      <li>object</li>
+      <li>null</li>
+      <li>symbol (доданий нещодавно)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>typeof</h3>
+
+    <ul>
+      <li>typeof true === 'boolean'</li>
+      <li>typeof 1 === 'number'</li>
+      <li>typeof 'hello' === 'string'</li>
+      <li>typeof undefined === 'undefined'</li>
+      <li>typeof {} === 'object'</li>
+      <li>typeof null === 'object'</li>
+      <li>typeof Symbol('hello') === 'symbol'</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>typeof (more)</h3>
+
+    <ul>
+      <li>typeof function() {} === 'function'</li>
+      <li>typeof [1, 2, 3] === 'object'</li>
+    </ul>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function a(b, c){ /* .. */ }
+a.length === 2
+
+Array.isArray(a) === false
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Рядки</h2>
+
+  <section>
+    <h4>Шаблонні рядки (Template strings)</h4>
+    <pre><code class="javascript" data-trim>
+`In JavaScript '\n' is a line-feed.`
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Багаторядкова</h4>
+    <pre><code class="javascript" data-trim>
+`In JavaScript this is
+not legal.`
+    </code></pre>
+  </section>
+
+  <section>
+    <h4>Інтерполяція</h4>
+    <pre><code class="javascript" data-trim>
+const name = 'Bob', time = 'today';
+`Hello ${name}, how are you ${time}?`
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Символ (Symbol)</h2>
+
+  <section>
+    <pre><code class="javascript" data-trim>
+const a = Symbol('name');
+    </code></pre>
+  </section>
+
+  <section>
+    <pre><code class="javascript" data-trim>
+const a = Symbol('name');
+const b = Symbol('name');
+a == b; //=&gt; false
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Глобальний реєстр</h3>
+
+    <pre><code class="javascript" data-trim>
+// створення в реєстрі
+let name = Symbol.for('name');
+
+// читання з реєстра
+Symbol.for('name') == name; //=&gt; true
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Загальновідомі (Well-known)</h3>
+
+    <pre><code class="javascript" data-trim>
+Symbol.iterator
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>undefined</h2>
+
+  <section>
+    <pre><code class="javascript hljs" data-trim contenteditable>
+var a;
+typeof a; // "undefined"
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Undeclared</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+typeof c; // "undefined"
+var b = c; // ReferenceError: c is not defined
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Autodeclaration</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+var d = 43;
+e = d;
+typeof d; // "number"
+
+window.e === e; // true
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>use strict</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+"use strict";
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Приведення типів (Coercion)</h2>
+
+  <section>
+    <h3>ToBoolean</h3>
+
+    <p>"Falsey" values:</p>
+    <ul>
+      <li>undefined</li>
+      <li>null</li>
+      <li>false</li>
+      <li>+0, -0, and NaN</li>
+      <li>""</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>ToString</h3>
+
+    <table>
+      <tbody>
+        <tr><th>Argument Type</th><th>Result</th></tr>
+        <tr><td>Undefined</td><td>Return <code>"undefined"</code>.</td></tr>
+        <tr><td>Null</td><td>Return <code>"null"</code>.</td></tr>
+        <tr>
+          <td>Boolean</td>
+          <td><code>true === "true"</code>, <code>false === "false"</code>.</td>
+        </tr>
+        <tr>
+          <td>Number</td>
+          <td>
+            See <a href="https://www.ecma-international.org/ecma-262/8.0/index.html#sec-tostring-applied-to-the-number-type">7.1.12.1</a>.
+          </td>
+        </tr>
+        <tr><td>String</td><td>Return <i>argument</i>.</td></tr>
+        <tr><td>Symbol</td><td>Throw a <i>TypeError</i> exception.</td></tr>
+        <tr><td>Object</td><td>ToPrimitive, ToString</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h3>ToNumber</h3>
+
+    <table>
+      <tbody>
+        <tr><th>Argument Type</th><th>Result</th></tr>
+        <tr><td>Undefined</td><td>Return <code>NaN</code>.</td></tr>
+        <tr><td>Null</td><td>Return <code>+0</code>.</td></tr>
+        <tr>
+          <td>Boolean</td>
+          <td><code>true === 1</code>, <code>false === +0</code>.</td>
+        </tr>
+        <tr><td>Number</td><td>Return <i>argument</i>.</td></tr>
+        <tr><td>String</td><td>See conversion algorithm below...</td></tr>
+        <tr><td>Symbol</td><td>Throw a <i>TypeError</i> exception.</td></tr>
+        <tr><td>Object</td><td>ToPrimitive, ToNumber</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h3>ToNumber</h3>
+
+    <ul>
+      <li>ToInteger</li>
+      <li>ToInt32</li>
+      <li>ToUint32</li>
+      <li>ToInt16</li>
+      <li>ToUint16</li>
+      <li>ToInt8</li>
+      <li>ToUint8</li>
+      <li>ToUint8Clamp</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>ToPrimitive</h3>
+
+    <ul>
+      <li>valueOf</li>
+      <li>toString</li>
+    </ul>
+
+    <p>Окрім деяких випадків, наприклад Date.</p>
+  </section>
+
+  <section>
+    <h3>valueOf</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+var a = {};
+a.valueOf = function() { return 3 };
+a == 3; // true
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>toString</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+({}).toString() // "[object Object]"
+(function() {}).toString() // "function () {}"
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>toJSON</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+var a = {
+  val: [1,2,3],
+  toJSON: function() {
+    return this.val.slice( 1 );
+  }
+}
+
+JSON.stringify(a); // "[2,3]"
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Explicit coercion</h2>
+
+  <section>
+    <ul>
+      <li>Boolean(a)</li>
+      <li>String(a)</li>
+      <li>Number(a)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>!!</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+!!12 === true
+!!0 === false
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>parseInt</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+parseInt("12"); // 12
+parseInt(13); // 13
+parseInt("   14   "); // 14
+parseInt(" 15asdasd"); // 15
+parseInt("0x10"); // 16
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>parseInt ?</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+parseInt(0.000008);
+parseInt(0.0000008);
+parseInt(false, 16);
+parseInt(parseInt, 16);
+parseInt(1/0, 19);
+parseInt("103", 2);
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Implicit coercion</h2>
+
+  <section>
+    <h3>Додавання</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+1. Let lref be the result of evaluating AdditiveExpression.
+2. Let lval be ? GetValue(lref).
+3. Let rref be the result of evaluating MultiplicativeExpression.
+4. Let rval be ? GetValue(rref).
+5. Let lprim be ? ToPrimitive(lval).
+6. Let rprim be ? ToPrimitive(rval).
+7. If Type(lprim) is String or Type(rprim) is String, then
+  a. Let lstr be ? ToString(lprim).
+  b. Let rstr be ? ToString(rprim).
+  c. Return the String that is the result of concatenating lstr and rstr.
+8. Let lnum be ? ToNumber(lprim).
+9. Let rnum be ? ToNumber(rprim).
+10. Return the result of applying the addition operation to lnum and rnum.
+    </code></pre>
+
+    <p><a href="https://www.ecma-international.org/ecma-262/8.0/index.html#sec-addition-operator-plus">spec</a></p>
+  </section>
+
+  <section>
+    <h3>==</h3>
+
+    <img src="images/equals.png" />
+
+    <p><a href="https://dorey.github.io/JavaScript-Equality-Table/">source</a></p>
+  </section>
+
+  <section>
+    <h3>===</h3>
+
+    <img src="images/strict-equals.png" />
+  </section>
+
+  <section>
+    <h3>&lt;</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+var a = [ 42 ];
+var b = "043";
+a &lt; b; // false
+Number(a) &lt; Number(b); // true
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Питання?</h2>
+</section>

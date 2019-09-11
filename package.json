@@ -1,0 +1,15 @@
+{
+  "name": "kpp-2019",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./app/app"
+  },
+  "repository": "github:yevhene/kpp-2019.git",
+  "author": "Yevhen Shemet",
+  "license": "WTFPL",
+  "dependencies": {
+    "app": "./app"
+  }
+}

@@ -1,0 +1,595 @@
+<section>
+  <h1>Об'єкти</h1>
+  <h2>Лекція 9</h2>
+</section>
+
+<section>
+  <section>
+    <h3>Створення</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+{}
+    </code></pre>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+new Object()
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Ключ/Значення</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const student = {
+  name: 'Василь'
+};
+
+student.name //=&gt; Василь
+student.name = 'Петро';
+student['name'] //=&gt; Петро
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Функції</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const student = {
+  name: 'Василь',
+  willGetTriBala: function() {
+    return true;
+  }
+};
+
+student.willGetTriBala() //=&gt; true
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Ключі</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const student = {
+  name: 'Василь',
+  willGetTriBala: function() {
+    return true;
+  }
+};
+
+Object.keys(student); //=&gt; ['name', 'willGetTriBala']
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Складені ключі<small><sup>(ES6)</sup></small></h3>
+
+    <pre><code class="javascript" data-trim>
+const name = 'Василь';
+const age = 19;
+const ages = {
+  ['Користувач ' + name]: age
+};
+
+ages['Користувач ' + name] = 21;
+
+ages['Користувач Василь']; //=&gt; 21
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Короткий запис ключ/значення<small><sup>(ES6)</sup></small></h3>
+
+    <pre><code class="javascript" data-trim>
+const name = 'Василь';
+const student = {
+  name, group: 'КН'
+};
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Короткий запис методів<small><sup>(ES6)</sup></small></h3>
+
+    <pre><code class="javascript" data-trim>
+const dog = {
+  oldBark: function() {
+    alert('Старе Гав');
+  },
+
+  bark() {
+    alert('Гав');
+  }
+};
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Зливання об'єктів</h3>
+
+    <p>Поверхневе. Використовує сеттери.</p>
+    <pre><code class="javascript" data-trim>
+const student = {
+  group: 'КН'
+};
+
+const oneMoreStudent = Object.assign({
+  name: 'Василь'
+}, student);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Розгортування об'єкта<small><sup>(ES6)</sup></small></h3>
+
+    <p>Поверхневе. Створює нові властивості.</p>
+    <pre><code class="javascript" data-trim>
+const student = {
+  group: 'КН'
+};
+
+const anotherStudent = {
+  ...student,
+  name: 'Василь'
+};
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Деструкція<small><sup>(ES6)</sup></small></h3>
+
+    <pre><code class="javascript" data-trim>
+const student = {
+  group: 'КН'
+};
+
+const { group } = student;
+group; //=&gt; КН
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Деструкція (складена)<small><sup>(ES6)</sup></small></h3>
+
+    <pre><code class="javascript" data-trim>
+const student = {
+  group: 'КН',
+  name: {
+    first: 'Василь',
+    last: 'Петренко'
+  }
+};
+
+const { group, name: { first, last: lastName } } = student;
+lastName; //=&gt; Петренко
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Деструкція параметрів<small><sup>(ES6)</sup></small></h3>
+
+    <pre><code class="javascript" data-trim>
+const student = {
+  group: 'КН',
+  name: {
+    first: 'Василь',
+    last: 'Петренко'
+  }
+};
+
+function hello({ name: { first } }) {
+  console.log('Привіт', first);
+}
+
+hello(student);
+// Привіт Василь
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Властивості</h2>
+
+  <section>
+    <h3>Приклади</h3>
+
+    <pre><code class="javascript" data-trim>
+{
+  name: 'Slim Shady'
+}.name
+
+[1, 2, 3].length
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Define property</h3>
+
+    <pre><code class="javascript" data-trim>
+const room = {
+  number: '2125'
+};
+
+Object.defineProperty(room, 'Відповідальний за пожежну безпеку', {
+  enumerable: false,
+  configurable: false,
+  writable: false,
+  value: 'Мотора В. Ф.'
+});
+
+room['Відповідальний за пожежну безпеку']; // Мотора В. Ф.
+
+Object.keys(room); // ['name']
+
+room['Відповідальний за пожежну безпеку'] = 'Шемет Є. О.';
+room['Відповідальний за пожежну безпеку']; // Мотора В. Ф.
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Set/Get</h3>
+
+    <pre><code class="javascript" data-trim>
+const room = {
+  number: '2125'
+};
+
+Object.defineProperty(room, 'responsible', {
+  get: function() {
+    return 'Мотора В. Ф.';
+  },
+
+  set: function(_value) {
+    throw 'Не можна так';
+  }
+});
+
+room.responsible; //=&gt; Мотора В. Ф.
+room.responsible = 'Шемет Є.О.'; //! Uncaught Не можна так
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Set/Get<small><sup>(ES6)</sup></small></h3>
+
+    <pre><code class="javascript" data-trim>
+const room = {
+  number: '2125',
+  get responsible() {
+    return 'Мотора В. Ф.';
+  },
+  set responsible(_value) {
+    throw 'Не можна так';
+  }
+};
+
+room.responsible; //=&gt; Мотора В. Ф.
+room.responsible = 'Шемет Є.О.'; //! Uncaught Не можна так
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>this</h2>
+
+  <section>
+    <pre><code class="javascript" data-trim>
+const student = {
+  name: 'Василь',
+  hello() {
+    console.log('Привіт ' + this.name);
+  }
+};
+
+student.hello();
+// Привіт Василь
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Зв'язок функції (методу) і об'єкту</h3>
+
+    <pre><code class="javascript" data-trim>
+const student = {
+  name: 'Василь',
+  hello() {
+    console.log('Привіт ' + this.name);
+  }
+};
+
+const hello = student.hello;
+hello();
+// ?
+    </code></pre>
+  </section>
+
+  <section>
+    <p><i>this</i> визначається не втому місці де функція об'явлена, а в тому місці де функція виконується.</p>
+  </section>
+
+  <section>
+    <h3>this це не ця функція</h3>
+
+    <pre><code class="javascript" data-trim>
+function hello() {
+  return this.count = 1;
+}
+
+hello.count = 0;
+hello(); //=&gt; 1
+hello.count; //=&gt; 0
+count; //=&gt; 1
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Правила this</h2>
+
+  <section>
+    <h3>1. По замовчуванню</h3>
+
+    <pre><code class="javascript" data-trim>
+function hello() {
+  return this;
+}
+
+hello(); //=&gt; window
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>1. По замовчуванню (strict)</h3>
+
+    <pre><code class="javascript" data-trim>
+"use strict";
+
+function hello() {
+  return this;
+}
+
+hello(); //=&gt; undefined
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>2. Правило крапки</h3>
+
+    <pre><code class="javascript" data-trim>
+const student = {
+  name: 'Оксана',
+  greet() {
+    console.log('Привіт ' + this.name);
+  }
+};
+
+const teacher = {
+  name: 'Євген Олександрович'
+};
+
+teacher.hello = student.greet;
+teacher.hello();
+// Привіт Євген Олександрович
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>2. Правило крапки (Втрата контексту)</h3>
+
+    <pre><code class="javascript" data-trim>
+const student = {
+  name: 'Оксана',
+  greet() {
+    console.log('Привіт ' + this.name);
+  }
+};
+
+const hello = student.greet;
+hello();
+// Привіт
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>3. Прив'язування (під час виклику)</h3>
+
+    <pre><code class="javascript" data-trim>
+const student = {
+  name: 'Оксана',
+  greet(otherName) {
+    console.log('Привіт ' + this.name + ' та ' + otherName);
+  }
+};
+
+student.greet.call({ name: 'Петро' }, 'Тетяна');
+// Привіт Петро та Тетяна
+
+student.greet.apply({ name: 'Василь' }, ['Марічка']);
+// Привіт Василь та Марічка
+
+student.greet.apply({ name: 'Василь' }, 'Марічка');
+// ?
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>3. Прив'язування (явне)</h3>
+
+    <pre><code class="javascript" data-trim>
+const oksana = {
+  name: 'Оксана'
+};
+
+function sayMyName() {
+  console.log(this.name);
+}
+
+const sayOksanaName = sayMyName.bind(oksana);
+
+sayOksanaName(); //=&gt; Оксана
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Вкладені функції (проблема)</h3>
+
+    <pre><code class="javascript" data-trim>
+const student = {
+  name: 'Оксана',
+  prepareGreeting() {
+    return function() {
+      console.log('Привіт', this.name);
+    }
+  }
+};
+
+const greeting = student.prepareGreeting();
+greeting();
+// Привіт
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Вкладені функції (вирішення)</h3>
+
+    <pre><code class="javascript" data-trim>
+const student = {
+  name: 'Оксана',
+  prepareGreeting() {
+    const _this = this;
+    return function() {
+      console.log('Привіт', _this.name);
+    }
+  }
+};
+
+const greeting = student.prepareGreeting();
+greeting();
+// Привіт Оксана
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>3. Прив'язування (=&gt;)<small><sup>(ES6)</sup></small></h3>
+
+    <pre><code class="javascript" data-trim>
+const student = {
+  name: 'Оксана',
+  prepareGreeting() {
+    return () =&gt; {
+      console.log('Привіт', this.name);
+    }
+  }
+};
+
+const greeting = student.prepareGreeting();
+greeting();
+// Привіт Оксана
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Обережно з =&gt;</h3>
+
+    <p><i>=&gt;</i> бере <i>this</i> що актуальний під час <b>створення.</b></p>
+    <pre><code class="javascript" data-trim>
+const student = {
+  name: 'Оксана',
+  printName: () =&gt; {
+    console.log(this);
+  }
+};
+student.printName();
+// window
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>4. new</h3>
+
+    <pre><code class="javascript" data-trim>
+function Animal() {
+  console.log(this);
+}
+
+new Animal();
+// object
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>ES6</h2>
+
+  <section>
+    <h3>Складені ключі</h3>
+
+    <pre><code class="javascript" data-trim>
+const name = 'Василь';
+const age = 19;
+const ages = {
+  ['Користувач ' + name]: age
+};
+
+ages['Користувач Василь']; //=&gt; 19
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Короткий запис ключ/значення</h3>
+
+    <pre><code class="javascript" data-trim>
+const name = 'Василь';
+const sudent = {
+  name, group: 'КН'
+};
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Короткий запис методів</h3>
+
+    <pre><code class="javascript" data-trim>
+const dog = {
+  old_bark: function() {
+    aler('Старе Гав');
+  },
+
+  bark() {
+    aler('Гав');
+  }
+};
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Розгортування об'єкта</h3>
+
+    <pre><code class="javascript" data-trim>
+const sudent = {
+  group: 'КН'
+};
+
+const another_student = {
+  ...student,
+  name: 'Василь'
+};
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Деструкція</h3>
+
+    <pre><code class="javascript" data-trim>
+const sudent = {
+  group: 'КН'
+};
+
+const { group } = student;
+group; //=&gt; КН
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Питання?</h2>
+</section>

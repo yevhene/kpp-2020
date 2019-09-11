@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title><%= title %></title>
+
+    <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+
+    <link rel="stylesheet" href="/slides/css/reveal.css">
+
+    <% if (white) { %>
+      <link rel="stylesheet" href="/slides/css/theme/solarized.css">
+      <link rel="stylesheet" href="/slides/lib/css/tomorrow.css">
+    <% } else { %>
+      <link rel="stylesheet" href="/slides/css/theme/black.css">
+      <link rel="stylesheet" href="/slides/lib/css/zenburn.css">
+    <% } %>
+
+    <link rel="stylesheet" href="/slides/css/custom.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? '/slides/css/print/pdf.css' : '/slides/css/print/paper.css';
+      document.getElementsByTagName('head')[0].appendChild( link );
+    </script>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <%- body %>
+      </div>
+    </div>
+    <script src="/slides/lib/js/head.min.js"></script>
+    <script src="/slides/js/reveal.js"></script>
+
+    <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        dependencies: [
+          { src: '/slides/plugin/markdown/marked.js' },
+          { src: '/slides/plugin/markdown/markdown.js' },
+          { src: '/slides/plugin/notes/notes.js', async: true },
+          { src: '/slides/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+    </script>
+  </body>
+</html>

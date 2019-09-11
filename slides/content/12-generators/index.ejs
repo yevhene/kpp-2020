@@ -1,0 +1,360 @@
+<section>
+  <h1>Генератори</h1>
+  <h2>Лекція 12</h2>
+</section>
+
+<section>
+  <h2>Поняття</h2>
+
+  <section>
+    <h2>Паралелізм (Parallelism)</h2>
+
+    <p>Коли декілька задач можуть виконуватись повністю одночасно. (Наприклад: на багатоядерному процессорі)</p>
+  </section>
+
+  <section>
+    <h2>Конкуренція (Concurrency)</h2>
+
+    <p>Коли декілька задач можуть виконуватись у різні проміжки часу, що можуть перемішуватись між собою. Вони можуть перекриватись або ні.</p>
+  </section>
+</section>
+
+<section>
+  <h2>Генератори</h2>
+
+  <section>
+    <h3>Генеруюча функція</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+function *seq() {
+  let n = 1;
+  yield n++;
+  yield n++;
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Генерація значень</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+function *seq() {
+  let n = 1;
+  yield n++;
+  yield n++;
+}
+
+const a = seq(); //=&gt; Об'єкт генератор (похідний від Iterator)
+a.next(); //=&gt; {value: 1, done: false}
+a.next(); //=&gt; {value: 2, done: false}
+a.next(); //=&gt; {value: undefined, done: true}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Конкуруючі генератори</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+function *seq() {
+  let n = 1;
+  yield n++;
+  yield n++;
+}
+
+const a = seq(); //=&gt; Об'єкт генератор (похідний від Iterator)
+const b = seq(); //=&gt; Об'єкт генератор (похідний від Iterator)
+a.next(); //=&gt; {value: 1, done: false}
+a.next(); //=&gt; {value: 2, done: false}
+b.next(); //=&gt; {value: 1, done: false}
+a.next(); //=&gt; {value: undefined, done: true}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Вкладені ітеровані значення</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+function *neg() {
+  yield -1;
+  yield -2;
+}
+
+function *seq() {
+  yield* neg();
+  yield* [1, 2];
+}
+
+const a = seq(); //=&gt; Об'єкт генератор
+a.next(); //=&gt; {value: -1, done: false}
+a.next(); //=&gt; {value: -2, done: false}
+a.next(); //=&gt; {value: 1, done: false}
+a.next(); //=&gt; {value: 2, done: false}
+a.next(); //=&gt; {value: undefined, done: true}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Кінцева генерація значень</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+function *seq() {
+  let n = 1;
+  yield n++;
+  yield n++;
+  return n;
+}
+
+const a = seq(); //=&gt; Об'єкт генератор
+a.next(); //=&gt; {value: 1, done: false}
+a.next(); //=&gt; {value: 2, done: false}
+a.next(); //=&gt; {value: 3, done: true}
+a.next(); //=&gt; {value: undefined, done: true}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Генератор це ітератор</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+function *seq() {
+  let n = 1;
+  yield n++;
+  yield n++;
+  return n;
+}
+
+[...seq()] //=&gt; [1, 2]
+    </code></pre>
+
+    <p>Останнє значення не попадає в ітерацію тому що поряд із ним <i>done: true</i><p>
+  </section>
+
+  <section>
+    <h3>Підстановка значень</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+function *seq(n = 1) {
+  while (true) {
+    n += (yield n) || 1;
+  }
+}
+
+const a = seq(17); //=&gt; Об'єкт генератор
+a.next(/* все одно */); //=&gt; {value: 17, done: false}
+a.next(); //=&gt; {value: 18, done: false}
+a.next(8); //=&gt; {value: 26, done: false}
+a.next(); //=&gt; {value: 27, done: false}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Підстановка значень для повернення</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+function *seq(n = 1) {
+  while (true) {
+    n += (yield n) || 1;
+  }
+}
+
+const a = seq(17); //=&gt; Об'єкт генератор
+a.next(/* все одно */); //=&gt; {value: 17, done: false}
+a.next(); //=&gt; {value: 18, done: false}
+a.next(8); //=&gt; {value: 26, done: false}
+a.next(); //=&gt; {value: 27, done: false}
+a.return(7) //=&gt; {value: 7, done: true}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Підстановка помилок</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+function *seq(n) {
+  try {
+    yield n;
+  } catch (e) {
+    yield e;
+  }
+}
+
+const a = seq(17); // =&gt; Об'єкт генератор
+a.next(); // =&gt; {value: 17, done: false}
+a.throw(4); // =&gt; {value: 4, done: false}
+a.next(); // =&gt; {value: undefined, done: true}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Протоколи Генераторів</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+interface Generator : extends Iterator {
+    throw(value? : any) : IteratorResult;
+}
+    </code></pre>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+interface Iterable {
+  [Symbol.iterator]() : Iterator;
+}
+interface Iterator extends Iterable {
+  next() : IteratorResult;
+  return?(value? : any) : IteratorResult;
+}
+interface IteratorResult {
+    value : any;
+    done : boolean;
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Виконувач (Runner)</h3>
+
+    <ul>
+      <li>Розгортає генератор до кінця;</li>
+      <li>Якщо генерується просте значення просто повертає його в генератор;</li>
+      <li>Якщо генерується функція, вона виконується, результат розгортується до простого значення і повертається назад;</li>
+      <li>Якщо генерується обіцянка, очікується на її вирішення, підставляється або значення або помилка (обіцянка розгортується сама за визначенням);</li>
+      <li>Якщо генерується інший генератор, він розгортується за тими ж правилами.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>co</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+co(seq())
+  .then(function(value) {
+    console.log(`Результат: ${value}`);
+  })
+  .catch(function(err) {
+    console.error(`Помилка: ${err.toString()}`);
+  });
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Приклад</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+function *userAddress(req, res) {
+  const user = yield User.findById(req.userId);
+  const address = yield Address.findById(user.addressId);
+
+  const html = yield jade.renderFile('address.jade', { address }));
+  res.send(html);
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Розширений приклад</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+function *placesNearby(req, res) {
+  const user = yield User.findById(req.userId);
+  const address = yield Address.findById(user.addressId);
+
+  const [users, places] = yield Promise.all([
+    User.near(address).findAll(),
+    Place.near(address).findAll()
+  ]));
+
+  const html = yield jade.renderFile('address.jade', {
+    address, users, places
+  }));
+  res.send(html);
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Розширений приклад з обробкою помилок</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+function *placesNearbyOrError(req, res) {
+  try {
+    const user = yield User.findById(req.userId);
+    const address = yield Address.findById(user.addressId);
+    const [users, places] = yield Promise.all([
+      User.near(address).findAll(),
+      Place.near(address).findAll()
+    ]))
+
+    const html = yield jade.renderFile('address.jade', {
+      address, users, places
+    }));
+    res.send(html));
+  } catch (e) {
+    res.send('Error' + err.toString()));
+  }
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Переваги/Недоліки</h3>
+
+    <ul>
+      <li>+ Всі бонуси обіцянок</li>
+      <li>+ Природний хід виконання</li>
+      <li>+ Знову можна використовувати try-catch</li>
+      <li>- Це сложна</li>
+      <li>- Це хак</li>
+      <li>- Необхідна спеціальна функція - виконувач</li>
+    </ul>
+  </section>
+</section>
+
+<section>
+  <h2>В старих браузерах</h2>
+
+  <section>
+    <h3>Транспіляція (Babel)</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+function *seq() {
+  let n = yield 17;
+  yield 18 + n;
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Транспіляція (Babel)</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+"use strict";
+
+var _marked = [seq].map(regeneratorRuntime.mark);
+
+function seq() {
+  var n;
+  return regeneratorRuntime.wrap(function seq$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return 17;
+
+        case 2:
+          n = _context.sent;
+          _context.next = 5;
+          return 18 + n;
+
+        case 5:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _marked[0], this);
+}
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Питання?</h2>
+</section>

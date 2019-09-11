@@ -1,0 +1,589 @@
+<section>
+  <h1>Обіцянки</h1>
+  <h2>Лекція 11</h2>
+</section>
+
+<section>
+  <h2>Асинхронність</h2>
+
+  <section>
+    <h3>Швидке перемикання контексту</h3>
+
+    <img src="images/asynchronicity.svg" />
+  </section>
+
+  <section>
+    <h3>Цикл подій (Event loop)</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+while (queue.waitForMessage()){
+  queue.processNextMessage();
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>JavaScript асинхронний</h3>
+
+    <ul>
+      <li><b>В Брузері</b> - оскільки JS виконується в один поток, будь який код що виконується <b>блокує інтерфейс користувача</b>.</li>
+      <li><b>В Node.js</b> - оскільки JS виконується в один поток, будь який код що виконується <b>блокує обробку інших запитів</b>.</li>
+    </ul>
+  </section>
+</section>
+
+<section>
+  <h2>Callback</h2>
+
+  <section>
+    <h3>Приклад</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+const request = require('request');
+
+request('http://google.com?q=kittens', function(error, html) {
+  if (error) {
+    console.error(`Запит не виконано: ${error.toString()}`);
+    return;
+  }
+
+  console.log(`Запит виконано з результатом: ${html}`);
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Приклад з декількома запитами</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+function userAddress(req, res) {
+  User.findById(req.params.userId, function(err, user) {
+    Address.findById(user.addressId, function(err, address) {
+      var opts = { address: address };
+      jade.renderFile('show.jade', opts, function(err, html) {
+        res.send(html);
+      });
+    });
+  });
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Розширений приклад</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+function placesNearby(req, res) {
+  User.findById(req.params.userId, function(err, user) {
+    Address.findById(user.addressId, function(err, address) {
+      User.near(address).findAll(function(err, users) {
+        Place.near(address).findAll(function(err, places) {
+          var opts = {
+            address: address, users: users, places: places
+          };
+          jade.renderFile('show.jade', opts, function(err, html) {
+              res.send(html);
+          });
+        });
+      });
+    });
+  });
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Піраміда Приречених <br />(Pyramid of Doom)</h3>
+
+    <img src="images/pyramid-of-doom.png" />
+  </section>
+
+  <section>
+    <h3>Розширений приклад з обробкою помилок</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+function placesNearbyOrError(req, res) {
+  User.findById(req.params.userId, function(err, user) {
+    if (err) {
+      res.send('Error ' + err.toString());
+      return;
+    }
+
+    Address.findById(user.addressId, function(err, address) {
+      if (err) {
+        res.send('Error ' + err.toString());
+        return;
+      }
+
+      User.near(address).findAll(function(err, users) {
+        if (err) {
+          res.send('Error ' + err.toString());
+          return;
+        }
+
+        Place.near(address).findAll(function(err, places) {
+          if (err) {
+            res.send('Error ' + err.toString());
+            return;
+          }
+          var opts = {
+            address: address, users: users, places: places
+          };
+          jade.renderFile('show.jade', opts, function(err, html) {
+            if (err) {
+              res.send('Error ' + err.toString());
+              return;
+            }
+            res.send(html);
+          });
+        });
+      });
+    });
+  });
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Оцінка</h3>
+
+    <ul>
+      <li><b>+</b> Простота</li>
+      <li><b>-</b> Піраміда приречених</li>
+      <li><b>-</b> Неприродній хід виконання коду</li>
+      <li><b>-</b> Вся обробка в одному місці</li>
+      <li><b>-</b> Необхідно обробляти результат та можливі помилки в місці виклику</li>
+      <li><b>-</b> Провокує більше зворотніх викликів, щоб передати результат або помилку</li>
+    </ul>
+  </section>
+</section>
+
+<section>
+  <h2>Promise</h2>
+
+  <section>
+    <h3>Fulfilled</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+const request = require('request-promise-native');
+
+const promise = request('http://google.com?q=kittens');
+
+function onFulfilled() {
+  console.log('Запит виконано!');
+};
+
+promise.then(onFulfilled);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Результат</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+const request = require('request-promise-native');
+
+const promise = request('http://google.com?q=kittens');
+
+function onFulfilled(html) {
+  console.log(`Запит виконано з результатом: ${html}`);
+};
+
+promise.then(onFulfilled);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Rejected</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+const request = require('request-promise-native');
+
+const promise = request('http://google.com?q=kittens');
+
+function onFulfilled(html) {
+  console.log(`Запит виконано з результатом: ${html}`);
+};
+
+function onRejected(error) {
+  console.error(`Запит не виконано: ${error.toString()}`);
+};
+
+promise.then(onFulfilled, onRejected);
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Історія</h2>
+
+  <section>
+    <ul>
+      <li>jQuery</li>
+      <li>Bluebird</li>
+      <li>Promises/A</li>
+      <li>Promises/A+ (http://pomisesaplus.com)</li>
+    </ul>
+  </section>
+</section>
+
+<section>
+  <h2>Ланцюжки</h2>
+
+  <section>
+    <h3>Приклад</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+const request = require('request-promise-native');
+
+const promise = request('http://google.com?q=kittens');
+
+function onFulfilled(html) {
+  console.log(`Запит виконано з результатом: ${html}`);
+};
+
+function onRejected(error) {
+  console.error(`Запит не виконано: ${error.toString()}`);
+};
+
+promise
+  .then(onFulfilled)
+  .then(null, onRejected);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Скорочено</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+const request = require('request-promise-native');
+
+request('http://google.com?q=kittens')
+  .then((html) =&gt;
+    console.log(`Запит виконано з результатом: ${html}`)
+  )
+  .then(null, (error) =&gt;
+    console.error(`Запит не виконано: ${error.toString()}`)
+  );
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Додаткова обробка</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+const request = require('request-promise-native');
+
+request('http://google.com?q=kittens')
+  .then((result) =&gt; `&lt;b&gt;${result}&lt;/b&gt;`)
+  .then((result) =&gt;
+    console.log(`Запит виконано з результатом: ${result}`)
+  )
+  .then(null, (error) =&gt;
+    console.error(`Запит не виконано: ${error.toString()}`)
+  );
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Обробка в різних місцях</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+const request = require('request-promise-native');
+
+function requestKittens() {
+  return request('http://google.com?q=kittens')
+    .then((result) =&gt; `&lt;b&gt;${result}&lt;/b&gt;`)
+    .then(null, (error) =&gt;
+      console.error(`Запит не виконано: ${error.toString()}`)
+    );
+}
+
+requestKittens()
+  .then((result) =&gt;
+    console.log(`Запит виконано з результатом: ${result}`)
+  );
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Створення</h2>
+
+  <section>
+    <h3>Готові обіцянки</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+const promise = Promise.resolve('Hello World!');
+
+const rejectedPromise = Promise.reject('Error!');
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Обгортування</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+const request = require('request');
+
+function requestPromise(url) {
+  return new Promise(function(resolve, reject) {
+    request('http://google.com?q=cats', function(error, result) {
+      if (error) {
+        reject(error);
+        return;
+      }
+
+      resolve(result);
+    });
+  });
+}
+
+const promise = requestPromise('http://google.com?q=kittens');
+...
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Promisify</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+const request = require('request');
+const { promisify } = require('es6-promisify');
+
+const requestPromise = promisify(request);
+
+const promise = requestPromise('http://google.com?q=kittens');
+...
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Обробка відмов</h2>
+
+  <section>
+    <h3>then</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+const request = require('request-promise-native');
+
+request('http://google.com?q=kittens')
+  .then((result) =&gt;
+    console.log(`Запит виконано з результатом: ${result}`)
+  )
+  .then(null, (error) =&gt;
+    console.error(`Запит не виконано: ${error.toString()}`)
+  );
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>catch</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+const request = require('request-promise-native');
+
+request('http://google.com?q=kittens')
+  .then((result) =&gt;
+    console.log(`Запит виконано з результатом: ${result}`)
+  )
+  .catch((error) =&gt;
+    console.error(`Запит не виконано: ${error.toString()}`)
+  );
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Обробка відмов</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+Promise.resolve('Hello')
+  .then((result) =&gt; Promise.reject('error'))
+  .catch((error) =&gt; {
+    console.log(`Обробка помилки: ${error}`);
+    return Promise.resolve('Hello World!');
+  })
+  .then((result) =&gt; console.log(result));
+    </code></pre>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+$ node promise.js
+Обробка помилки: error
+Hello World!
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Ігнорування then через помилку</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+Promise.resolve('Hello')
+  .then((result) =&gt; Promise.reject('error'))
+  .then((result) =&gt; console.log('Не виконається'))
+  .catch((error) =&gt; {
+    console.log(`Обробка помилки: ${error}`);
+    return Promise.resolve('Hello World!');
+  })
+  .then((result) =&gt; console.log(result));
+    </code></pre>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+$ node promise.js
+Обробка помилки: error
+Hello World!
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Необроблені відмови</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+Promise.resolve('Hello')
+  .then((result) =&gt; Promise.reject('error'))
+    </code></pre>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+$ node promise.js
+(node:20046) UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 2): error
+(node:20046) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>finally <small>ES2018</small></h3>
+
+    <ul>
+      <li>Завжди виконується;</li>
+      <li>Не приймає аргументів;</li>
+      <li>Ігнорується повернене значення.</li>
+    </ul>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+doStuff()
+  .then...
+  .finally(() =&gt; doCleanup());
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Групування</h2>
+
+  <section>
+    <h3>all</h3>
+
+    <p>Результатом сполученої обіцянки буде масив результатів обіцянок. Або сполучену обіцянку буде відхилено, з першою отриманою помилкою.</p>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+const request = require('request-promise-native');
+
+Promise.all([
+  request('http://google.com?q=kittens'),
+  request('http://google.com?q=dogs')
+])
+.then((result) =&gt; {
+  console.log(`Kittens ${result[0]}`);
+  console.log(`Dogs ${result[1]}`)
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>race</h3>
+
+    <p>Результатом сполученої обіцянки буде результат першої виконаної або відхиленої обіцянки.</p>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+const request = require('request-promise-native');
+
+Promise.race([
+  request('http://google.com?q=kittens'),
+  request('http://bind.com?q=kittens')
+])
+.then((result) =&gt; {
+  console.log(`Kittens ${result}`);
+});
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Більше прикладів</h2>
+
+  <section>
+    <h3>Приклад</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+function userAddress(req, res) {
+  User
+    .findById(req.params.userId)
+    .then(user =&gt; Address.findById(user.addressId))
+    .then(address =&gt; jade.renderFile('show.jade', { address }))
+    .then(html =&gt; res.send(html));
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Розширений приклад</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+function placesNearby(req, res) {
+  User
+    .findById(req.params.userId)
+    .then(user =&gt; Address.findById(user.addressId))
+    .then(address =&gt; Promise.all([
+      Promise.resolve(address),
+      User.near(address).findAll(),
+      Place.near(address).findAll()
+    ]))
+    .then([address, users, places] =&gt;
+      renderFile('show.jade', { address, users, places })
+    )
+    .then(html =&gt; res.send(html));
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Розширений приклад з обробкою помилок</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+function placesNearbyOrError(req, res) {
+  User
+    .findById(req.params.userId)
+    .then(user =&gt; Address.findById(user.addressId))
+    .then(address =&gt; Promise.all([
+      Promise.resolve(address),
+      User.near(address).findAll(),
+      Place.near(address).findAll()
+    ]))
+    .then([address, users, places] =&gt;
+      renderFile('show.jade', { address, users, places })
+    )
+    .then(html =&gt; res.send(html))
+    .catch(err =&gt; res.send('Error' + err.toString()));
+}
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Підсумок</h2>
+
+  <section>
+    <ul>
+      <li><b>+</b> Майже звичний хід виконання</li>
+      <li><b>+</b> Проста обробка помилок</li>
+      <li><b>+</b> Гілки виконання</li>
+      <li><b>-</b> Все ж таки не дуже звичний хід виконання</li>
+      <li><b>-</b> Область видимості</li>
+      <li><b>-</b> Помилки не завжди оброблюються</li>
+    </ul>
+  </section>
+</section>
+
+<section>
+  <h2>Питання?</h2>
+</section>
