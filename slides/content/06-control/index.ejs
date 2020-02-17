@@ -1,17 +1,12 @@
 <section>
   <h1>Керування</h1>
-  <h2>Лекція 4</h2>
-</section>
-
-<section>
-  <p>try/catch, while, for, if, break, with</p>
 </section>
 
 <section>
   <h2>Умови</h2>
 
   <section>
-    <p>Дозволяють виконувати чи не код в залежності від певної умови.</p>
+    <p>Дозволяють виконувати чи не виконувати код в залежності від певної умови</p>
   </section>
 
   <section>
@@ -30,19 +25,46 @@ if (x &gt; 0) {
 i; //=&gt; -1
     </code></pre>
   </section>
+
+  <section>
+    <h3>Тернарний оператор</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const mark = labs_count == 4 ? 'відмінно' : 'таке';
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>switch</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+switch (student.group) {
+  case '1КН-18б':
+  case '2КН-18б':
+  case '3КН-18б':
+    console.log('Вам необхідно здати 4 лаби');
+    break;
+  case '1КН-18мс':
+    console.log('Вам необхідно здати 2 лаби');
+    break;
+  default:
+    console.log('Вам немає потреби нічого здавати');
+}
+    </code></pre>
+  </section>
 </section>
 
 <section>
   <h2>Цикли</h2>
 
   <section>
-    <p>Дозволяють виконувати інструкції певну кількість разів. Одине виконання називається - ітерація.</p>
+    <p>Дозволяють виконувати інструкції певну кількість разів. Одине виконання називається - <strong>ітерація</strong></p>
   </section>
 
   <section>
     <h3>while</h3>
 
-    <p>Виконує блок коду доки умова правдива. Якщо умова одразу неправдива, не виконується жодного разу.</p>
+    <p>Виконує блок коду поки умова правдива. Якщо умова одразу неправдива, не виконується жодного разу</p>
 
     <pre><code class="javascript hljs" data-trim contenteditable>
 let i = 0;
@@ -56,15 +78,83 @@ i; //=&gt; 5
   </section>
 
   <section>
+    <h3>do..while</h3>
+
+    <p>Виконує блок коду поки умова правдива. Навть якщо умова одразу неправдива, виконується принаймні один раз</p>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+let i = 0;
+
+do {
+  i++;
+} while (i &gt; 5);
+
+i; //=&gt; 1
+    </code></pre>
+  </section>
+
+  <section>
     <h3>for</h3>
 
-    <p>Скорочений запис циклу що виконується конкретну кількість разів. Складається з трьох частин `for (ініціалізація; умова; зміна)`.</p>
+    <p>Скорочений запис циклу що виконується конкретну кількість разів. Складається з трьох частин `for (ініціалізація; умова; зміна)`</p>
 
     <pre><code class="javascript hljs" data-trim contenteditable>
 for (let i = 0; i &lt; 5; i++) {
   // ...код...
 }
     </code></pre>
+  </section>
+
+  <section>
+    <h3>break</h3>
+
+    <p>Дозволяє передчасно вийти з цикла</p>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+let i = 0;
+
+while (true) {
+  if (i++ &gt; 5) {
+    break;
+  }
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>continue</h3>
+
+    <p>Дозволяє передчасно перейти до наступної ітерації</p>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+let i = 0;
+while (++i &lt; 5) {
+  if (i % 2 == 0) {
+    continue;
+  }
+
+  console.log(i);
+}
+
+//&gt; 1
+//&gt; 3
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Виключення</h2>
+
+  <section>
+    try, catch, finally, Exception
+  </section>
+</section>
+
+<section>
+  <h2>Особливі</h2>
+
+  <section>
+    with
   </section>
 </section>
 

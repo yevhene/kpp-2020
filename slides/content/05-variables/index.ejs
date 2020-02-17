@@ -1,6 +1,5 @@
 <section>
   <h1>Змінні</h1>
-  <h2>Лекція 6</h2>
 </section>
 
 <section>
@@ -290,6 +289,80 @@ console.log(o1.a); //&gt; 2
 foo(o2);
 console.log(o2.a); //&gt; undefined
 console.log(a); //&gt; 2 - leaked global!
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h3>function scope</h3>
+
+  <section>
+    <h3>Цикли (проблема)</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const funcs = [];
+for (var i = 0; i &lt; 3; i++) {
+  funcs[i] = function() {
+    console.log(i);
+  };
+}
+for (var j = 0; j &lt; 3; j++) {
+  funcs[j]();
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Фабрика</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function createFunction(i) {
+  return function() {
+    console.log(i);
+  };
+}
+
+const funcs = [];
+for (var i = 0; i &lt; 3; i++) {
+  funcs[i] = createFunction(i);
+}
+for (var j = 0; j &lt; 3; j++) {
+  funcs[j]();
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>IIFE</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const funcs = [];
+for (var i = 0; i &lt; 3; i++) {
+  funcs[i] = (function(j) {
+    return function() {
+      console.log(j);
+    };
+  }(i));
+}
+for (var j = 0; j &lt; 3; j++) {
+  funcs[j]();
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>let<small><sup>(ES6)</sup></small></h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const funcs = [];
+for (let i = 0; i &lt; 3; i++) {
+  funcs[i] = function() {
+    console.log(i);
+  };
+}
+for (let j = 0; j &lt; 3; j++) {
+  funcs[j]();
+}
     </code></pre>
   </section>
 </section>

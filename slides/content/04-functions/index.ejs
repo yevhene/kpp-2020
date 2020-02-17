@@ -1,6 +1,5 @@
 <section>
   <h1>Функції</h1>
-  <h2>Лекція 7</h2>
 </section>
 
 <section>
@@ -283,148 +282,10 @@ setInterval(function() {
 }, 1000)
     </code></pre>
   </section>
-
-  <section>
-    <h3>Функції вищого порядку</h3>
-
-    <p>every/some</p>
-    <pre><code class="javascript hljs" data-trim contenteditable>
-const arr = [1, 2, 3];
-arr.some(e =&gt; e === 2); //=&gt; true
-arr.every(e =&gt; e === 2); //=&gt; false
-    </code></pre>
-  </section>
-
-  <section>
-    <h3>Функції вищого порядку</h3>
-
-    <p>map</p>
-    <pre><code class="javascript hljs" data-trim contenteditable>
-let arr = [1, 2, 3];
-arr = arr.map(e =&gt; e * 2);
-arr; //=&gt; 2, 4, 6
-    </code></pre>
-  </section>
-
-  <section>
-    <h3>Функції вищого порядку</h3>
-
-    <p>reduce</p>
-    <pre><code class="javascript hljs" data-trim contenteditable>
-const arr = [1, 2, 3];
-arr.reduce((acc, e) =&gt; acc + e); //=&gt; 6
-    </code></pre>
-  </section>
-</section>
-
-<section>
-  <h3>function scope</h3>
-
-  <section>
-    <h3>Цикли (проблема)</h3>
-
-    <pre><code class="javascript hljs" data-trim contenteditable>
-const funcs = [];
-for (var i = 0; i &lt; 3; i++) {
-  funcs[i] = function() {
-    console.log(i);
-  };
-}
-for (var j = 0; j &lt; 3; j++) {
-  funcs[j]();
-}
-    </code></pre>
-  </section>
-
-  <section>
-    <h3>Фабрика</h3>
-
-    <pre><code class="javascript hljs" data-trim contenteditable>
-function createFunction(i) {
-  return function() {
-    console.log(i);
-  };
-}
-
-const funcs = [];
-for (var i = 0; i &lt; 3; i++) {
-  funcs[i] = createFunction(i);
-}
-for (var j = 0; j &lt; 3; j++) {
-  funcs[j]();
-}
-    </code></pre>
-  </section>
-
-  <section>
-    <h3>IIFE</h3>
-
-    <pre><code class="javascript hljs" data-trim contenteditable>
-const funcs = [];
-for (var i = 0; i &lt; 3; i++) {
-  funcs[i] = (function(j) {
-    return function() {
-      console.log(j);
-    };
-  }(i));
-}
-for (var j = 0; j &lt; 3; j++) {
-  funcs[j]();
-}
-    </code></pre>
-  </section>
-
-  <section>
-    <h3>let<small><sup>(ES6)</sup></small></h3>
-
-    <pre><code class="javascript hljs" data-trim contenteditable>
-const funcs = [];
-for (let i = 0; i &lt; 3; i++) {
-  funcs[i] = function() {
-    console.log(i);
-  };
-}
-for (let j = 0; j &lt; 3; j++) {
-  funcs[j]();
-}
-    </code></pre>
-  </section>
 </section>
 
 <section>
   <h2>ES6</h2>
-
-  <section>
-    <h4>Аргументи за замовчуванням (default)</h4>
-    <pre><code class="javascript" data-trim>
-function hello(name = 'студент') {
-  alert(`Привіт ${name}`);
-}
-    </code></pre>
-  </section>
-
-  <section>
-    <h4>Змінна кількість аргументів (rest)</h4>
-    <pre><code class="javascript" data-trim>
-function f(x, ...y) {
-  // y - масив
-  return x * y.length;
-}
-
-f(3, 'second', true) // =&gt; 6
-    </code></pre>
-  </section>
-
-  <section>
-    <h4>Розгортування аргументів (spread)</h4>
-    <pre><code class="javascript" data-trim>
-function f(x, y, z) {
-  return x + y + z;
-}
-
-f(...[1,2,3]) // =&gt; 6
-    </code></pre>
-  </section>
 
   <section>
     <h4>Деструкція аргументів</h4>
@@ -441,21 +302,6 @@ function info({ personal: { name }, group }) {
 }
 
 info(student); //=&gt; `Василь з КН`
-    </code></pre>
-  </section>
-
-  <section>
-    <h4>Стрілочна функція</h4>
-    <pre><code class="javascript" data-trim>
-function inc(n) {
-  return n + 1;
-}
-
-const inc1 = n =&gt; n + 1;
-
-const add = (a, b) =&gt; {
-  return a + b;
-}
     </code></pre>
   </section>
 

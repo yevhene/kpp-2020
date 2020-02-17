@@ -1,17 +1,6 @@
-2. Structure
-3. Regexp
-
-#### Лекція 4: Керування
-- Теми:
-  - Цикли (while, for);
-  - Галудження (if, break);
-  - Виключення (try, catch).
-- [Слайди](/slides/04-control/)
-
-#### Лекція 8: Масиви
-- Теми:
-  - Ітератори.
-- [Слайди](/slides/08-arrays/)
+4. Expand function lecture with some theory
+5. short
+L-system
 
 #### Лекція 9: Об'єкти
 - Теми:
@@ -99,4 +88,5 @@
     </ul>
   </section>
 </section>
+
 

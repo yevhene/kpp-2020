@@ -1,6 +1,125 @@
 <section>
-  <h1>Масиви</h1>
-  <h2>Лекція 8</h2>
+  <h1>Масиви і рядки</h1>
+</section>
+
+<section>
+  <h2>Масиви</h2>
+
+  <section>
+    <h3>Створення</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+[1, 2, 3]
+    </code></pre>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+new Array(1, 2, 3) //=&gt; [1, 2, 3]
+
+new Array(3) //=&gt; [undefined, undefined, undefined]
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Перетворення на рядок</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+[1, 2, 3].toString() //=&gt; "1,2,3"
+
+[1, 2, 3].join() //=&gt; "123"
+
+[1, 2, 3].join('_') //=&gt; "1_2_3"
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Вирізання фрагменту</h3>
+
+    <p>Змінює вихідний масив</p>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+let arr = [1, 2, 3, 4]
+arr.splice(1, 2) //=&gt; [2, 3]
+arr //=&gt; [1, 4]
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>every/some</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const arr = [1, 2, 3];
+arr.some(e =&gt; e === 2); //=&gt; true
+arr.every(e =&gt; e === 2); //=&gt; false
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>map</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+let arr = [1, 2, 3];
+arr = arr.map(e =&gt; e * 2);
+arr; //=&gt; 2, 4, 6
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>reduce</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const arr = [1, 2, 3];
+arr.reduce((acc, e) =&gt; acc + e); //=&gt; 6
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Рядки</h2>
+
+  <section>
+    <h3>Створення</h3>
+
+    <pre><code class="javascript" data-trim>
+'Some string' === "Some string"
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Пере</h3>
+  </section>
+
+  <section>
+    <h3>Шаблонні рядки (Template strings)</h3>
+
+    <pre><code class="javascript" data-trim>
+`In JavaScript '\n' is a line-feed.`
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Багаторядкова</h3>
+
+    <pre><code class="javascript" data-trim>
+`In JavaScript this is
+not legal.`
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Інтерполяція</h3>
+    <pre><code class="javascript" data-trim>
+const name = 'Bob', time = 'today';
+`Hello ${name}, how are you ${time}?`
+    </code></pre>
+  </section>
+
+  tagged literal, join, trim, split
+</section>
+
+<section>
+  <h2>Стандартна бібліотека</h2>
+
+  slice, [], concat, indexOf, find, findIndex
 </section>
 
 <section>
@@ -108,6 +227,12 @@ interface IteratorResult {
 
     <p>Iterator зазвичай також реалізує Iterable і повертає себе.</p>
   </section>
+</section>
+
+<section>
+  <h2>Регулярні вирази</h2>
+
+  match, replace, search
 </section>
 
 <section>
