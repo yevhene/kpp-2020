@@ -20,6 +20,15 @@ new Array(3) //=&gt; [undefined, undefined, undefined]
   </section>
 
   <section>
+    <h3>Отримання елемента за індексом</h3>
+
+    <pre><code class="javascript" data-trim>
+const arr = [1, 2, 3]
+arr[0] //=&gt; 1
+    </code></pre>
+  </section>
+
+  <section>
     <h3>Перетворення на рядок</h3>
 
     <pre><code class="javascript hljs" data-trim contenteditable>
@@ -71,6 +80,26 @@ const arr = [1, 2, 3];
 arr.reduce((acc, e) =&gt; acc + e); //=&gt; 6
     </code></pre>
   </section>
+
+  <section>
+    <h3>find</h3>
+
+    <p>Пошук</p>
+
+    <pre><code class="javascript" data-trim>
+[1, 2, 3].find((e) =&gt; e % 2 === 0) //=&gt; 2
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>findIndex</h3>
+
+    <p>Пошук індекса</p>
+
+    <pre><code class="javascript" data-trim>
+[1, 2, 3].findIndex((e) =&gt; e % 2 === 0) //=&gt; 1
+    </code></pre>
+  </section>
 </section>
 
 <section>
@@ -85,7 +114,30 @@ arr.reduce((acc, e) =&gt; acc + e); //=&gt; 6
   </section>
 
   <section>
-    <h3>Пере</h3>
+    <h3>Отримання елемента за індексом</h3>
+
+    <pre><code class="javascript" data-trim>
+const str = '123'
+atr[0] //=&gt; 1
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Розбиття</h3>
+
+    <pre><code class="javascript" data-trim>
+'some'.split('') //=&gt; ['s', 'o', 'm', 'e']
+
+'some string'.split(' ') //=&gt; ['some', 'string']
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Підрізання</h3>
+
+    <pre><code class="javascript" data-trim>
+'  some string  '.trim() //=&gt; 'some string'
+    </code></pre>
   </section>
 
   <section>
@@ -97,7 +149,7 @@ arr.reduce((acc, e) =&gt; acc + e); //=&gt; 6
   </section>
 
   <section>
-    <h3>Багаторядкова</h3>
+    <h3>Багаторядковий рядок</h3>
 
     <pre><code class="javascript" data-trim>
 `In JavaScript this is
@@ -107,19 +159,72 @@ not legal.`
 
   <section>
     <h3>Інтерполяція</h3>
+
     <pre><code class="javascript" data-trim>
 const name = 'Bob', time = 'today';
 `Hello ${name}, how are you ${time}?`
     </code></pre>
   </section>
 
-  tagged literal, join, trim, split
+  <section>
+    <h3>Tagged literal</h3>
+
+    <pre><code class="javascript" data-trim>
+const highlight = (strings, ...values) =&gt;
+  strings.reduce((result, string, i) =&gt;
+    `${result}${string}&lt;b&gt;${values[i] || ''}&lt;/b&gt;`, '');
+
+const author = 'Yevhen';
+const statement = 'Hello';
+const quote = highlight`${statement} by ${author}`;
+console.log(quote);
+//&gt; &lt;b&gt;Hello&lt;b&gt; by &lt;b&gt;Yevhen&lt;b&gt;&lt;b&gt;&lt;b&gt;
+    </code></pre>
+  </section>
 </section>
 
 <section>
   <h2>Стандартна бібліотека</h2>
 
-  slice, [], concat, indexOf, find, findIndex
+  find, findIndex
+
+  <section>
+    <h3>slice</h3>
+
+    <p>Вирізання частини</p>
+
+    <pre><code class="javascript" data-trim>
+const fruits = ['Banana', 'Orange', 'Lemon', 'Apple', 'Mango'];
+fruits.slice(1, 3); //=&gt; ["Orange", "Lemon"]
+
+const fruit = 'Banana';
+fruit.slice(1, 3); //=&gt; "an"
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>concat</h3>
+
+    <p>Об'єднання</p>
+
+    <pre><code class="javascript" data-trim>
+[1, 2].concat([3, 4]) //=&gt; [1, 2, 3, 4]
+
+'12'.concat('34') //=&gt; 1234
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>indexOf</h3>
+
+    <p>Пошук індекса за елементом</p>
+
+    <pre><code class="javascript" data-trim>
+['a', 'b', 'c'].indexOf('b') //=&gt; 1
+
+'abc'.indexOf('c') //=&gt; 2
+    </code></pre>
+  </section>
 </section>
 
 <section>
@@ -232,7 +337,171 @@ interface IteratorResult {
 <section>
   <h2>Регулярні вирази</h2>
 
-  match, replace, search
+  <section>
+    <h3>Створення</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+const pattern = new RegExp(pattern, attributes);
+// або
+const pattern = /pattern/attributes;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Квадратні дужки</h3>
+
+    <dl>
+      <dt>[abc]</dt><dd>будь-який символ з переліку</dd>
+      <dt>[^abc]</dt><dd>будь-який символ окрім перелічених</dd>
+      <dt>[0-9a-z]</dt><dd>будь-який символ з діапазону</dd>
+    </dl>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+"Hello World!" - /l/
+   ^^     ^
+"Hello World!" - /[lW]/
+   ^^  ^  ^
+"Hello World!" - /[^lW]/
+ ^^  ^^ ^^ ^^
+"Hello World!" - /[^a-l]/
+  ^^^     ^^
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Квантифікатори</h3>
+
+    <dl>
+      <dt>a+</dt><dd>один або більше символ</dd>
+      <dt>a*</dt><dd>нуль або більше символів</dd>
+      <dt>a?</dt><dd>нуль або один символ</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h3>Квантифікатори</h3>
+
+    <dl>
+      <dt>a{3}</dt><dd>конкретна кількість символів</dd>
+      <dt>a{2, 3}</dt><dd>варіанти конкретної кількості символів</dd>
+      <dt>a{3, }</dt><dd>більше або дорівнює кількості</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h3>Квантифікатори</h3>
+
+    <dl>
+      <dt>^a</dt><dd>початок рядка</dd>
+      <dt>a$</dt><dd>кінець рядка</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h3>Квантифікатори</h3>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+"Hello World!" - /l+/
+   ^      ^
+"Hello World!" - /l{2}/
+   ^
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Спеціальні символи</h3>
+
+    <dl>
+      <dt>\t</dt><dd>символ табуляції</dd>
+      <dt>\n</dt><dd>символ нової лінії</dd>
+      <dt>\uxxxx</dt><dd>номер симовла в Unicode</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h3>Метасиволи</h3>
+
+    <dl>
+      <dt>.</dt><dd>будь-який символ</dd>
+      <dt>(abc|def)</dt><dd>альтернатива</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h3>Метасиволи</h3>
+
+    <dl>
+      <dt>\d</dt><dd>цифра</dd>
+      <dt>\D</dt><dd>не цифра</dd>
+      <dt>\s</dt><dd>пробільний символ (tab, space, newline)</dd>
+      <dt>\S</dt><dd>не пробільний символ</dd>
+      <dt>\w</dt><dd>a-z, A-Z, 0-9, _</dd>
+      <dt>\W</dt><dd>не a-z, A-Z, 0-9, _</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h3>Приклади</h3>
+
+    <ul>
+      <li>[^a-zA-Z]</li>
+      <li>p.p</li>
+      <li>^.{2}$</li>
+      <li>&lt;b&gt;(.*)&lt;/b&gt;</li>
+      <li>p(hp)*</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Модифікатори</h3>
+
+    <dl>
+      <dt>i</dt><dd>ігнорувати регістр</dd>
+      <dt>m</dt><dd>multiline (^ та $ реагують на '\n')</dd>
+      <dt>g</dt><dd>шукає всі співпадіння</dd>
+    </dl>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+"Hello World!" - /h/
+
+"Hello World!" - /h/i
+ ^
+"Hello World!" - /l/
+   ^
+"Hello World!" - /l/g
+   ^^     ^
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>match</h3>
+
+    <p>Повертає список співпадінь</p>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+'Hello World!'.match(/[A-Z]/g); //=&gt; ['H', 'W']
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>search</h3>
+
+    <p>Повертає індекс першого співпадіння</p>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+'Hello World!'.search(/W/g); //=&gt; 6
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>replace</h3>
+
+    <p>Заміняє всі співпадіння</p>
+
+    <pre><code class="hljs javascript" data-trim contenteditable>
+'Hello World!'.replace(/[A-Z]/g, 'F'); //=&gt; 'Fello Forld!'
+    </code></pre>
+  </section>
 </section>
 
 <section>
