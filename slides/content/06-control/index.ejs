@@ -146,7 +146,84 @@ while (++i &lt; 5) {
   <h2>Виключення</h2>
 
   <section>
-    try, catch, finally, Exception
+    <h3>try, catch</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+try {
+  someRiskyOperation();
+} catch (e) {
+  handleException(e);
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>finally</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+try {
+  someRiskyOperation();
+} catch (e) {
+  handleException(e);
+} finally {
+  cleanup();
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>throw</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+try {
+  throw 'My error';
+} catch (e) {
+  console.log(e); //&gt; My error
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Optional catch binding <small>ES2019</small></h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+try {
+  throw 'My error';
+} catch {
+  console.log(e);
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Помилки</h3>
+
+    <dl>
+      <dt>EvalError</dt><dd>помилка під час виконання коду за допомогою eval</dd>
+      <dt>SyntaxError</dt><dd>помилка під час розбору коду під час виклика eval</dd>
+      <dt>InternalError</dt><dd>внутрішня помилка рушія (зазвичай чогось забагато)</dd>
+      <dt>RangeError</dt><dd>вихід за границі масива або стека</dd>
+      <dt>TypeError</dt><dd>невірний тип аргументу</dd>
+      <dt>URIError</dt><dd>помилка під час encodeURI() або decodeURI()</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h3>Обробка помилок за типом</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+try {
+  someRiskyOperation();
+} catch (e) {
+  if (e instanceof TypeError) {
+    // ...
+  } else if (e instanceOf RangeError) {
+    // ...
+  } else {
+    throw e;
+  }
+}
+    </code></pre>
   </section>
 </section>
 
@@ -154,7 +231,46 @@ while (++i &lt; 5) {
   <h2>Особливі</h2>
 
   <section>
-    with
+    <h3>with</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+var obj = {
+  a: 1,
+  b: 2,
+};
+
+obj.a = 2;
+obj.b = 3;
+obj.c = 4;
+
+with (obj) {
+  a = 3;
+  b = 4;
+  c = 5;
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>with (не використовуйте)</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function foo(obj) {
+  with (obj) {
+    a = 2;
+  }
+}
+
+var o1 = { a: 3 };
+var o2 = { b: 3 };
+
+foo(o1);
+console.log(o1.a); //&gt; 2
+
+foo(o2);
+console.log(o2.a); //&gt; undefined
+console.log(a); //&gt; 2 - leaked global!
+    </code></pre>
   </section>
 </section>
 

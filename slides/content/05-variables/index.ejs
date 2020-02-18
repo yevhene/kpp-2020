@@ -242,6 +242,7 @@ foo("var b = 3;", 1); //&gt; 1, 3
 try {
   throw 'Error';
 } catch(e) {
+  // Особлива область видимості в якій існує - e
   console.log(e); //!&gt; Error
 }
 
@@ -258,37 +259,12 @@ var obj = {
   b: 2,
 };
 
-obj.a = 2;
-obj.b = 3;
-obj.c = 4;
-
 with (obj) {
+  // Особлива область видимості в якій існують ключі об'єкта obj,
+  // як незалежні змінні
   a = 3;
   b = 4;
-  c = 5;
 }
-    </code></pre>
-  </section>
-
-  <section>
-    <h3>with (problems)</h3>
-
-    <pre><code class="javascript hljs" data-trim contenteditable>
-function foo(obj) {
-  with (obj) {
-    a = 2;
-  }
-}
-
-var o1 = { a: 3 };
-var o2 = { b: 3 };
-
-foo(o1);
-console.log(o1.a); //&gt; 2
-
-foo(o2);
-console.log(o2.a); //&gt; undefined
-console.log(a); //&gt; 2 - leaked global!
     </code></pre>
   </section>
 </section>
