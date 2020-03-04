@@ -1,7 +1,7 @@
 const glob = require('glob');
 const path = require('path');
 
-const config = require('./config');
+const config = require('../config');
 
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');

@@ -90,3 +90,24 @@
   - prototype;
   - class.
 - [Слайди](/slides/10-oop/)
+
+#### Лекція 11: Протоколи та стандарти Web
+- Теми:
+  - WWW;
+  - URI (URL/URN);
+  - HTTP (request, response, method, header).
+- [Слайди](/slides/11-web/)
+
+#### Лекція 12: express.js
+- Теми:
+  - Роутинг;
+  - Шаблонізатори;
+  - Ресурси.
+- [Слайди](/slides/12-express/)
+
+#### Лекція 13: HTML Форми
+- Теми:
+  - form;
+  - input/textarea/select;
+  - Валідація.
+- [Слайди](/slides/13-forms)

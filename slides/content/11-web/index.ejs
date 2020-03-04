@@ -1,0 +1,476 @@
+<section>
+  <h1>Web</h1>
+</section>
+
+<section>
+  <h2>WWW</h2>
+
+  <section>
+    <h3>World Wide Web</h3>
+  </section>
+
+  <section>
+    <h3>TCP/IP</h3>
+    <h4>TCP - Transmission Control Protocol (TCP/UDP)</h4>
+    <h4>IP - Internet protocol</h4>
+  </section>
+
+  <section>
+    <br />
+    <table>
+      <tr><th>TCP/IP</th><th>OSI</th></tr>
+      <tr><td rowspan="3">Application</td><td>Application</td></tr>
+      <tr><td>Presentation</td></tr>
+      <tr><td>Session</td></tr>
+      <tr><td>Transport</td><td>Transport</td></tr>
+      <tr><td>Internet</td><td>Network</td></tr>
+      <tr><td rowspan="2">Link</td><td>Data link</td></tr>
+      <tr><td>Physical</td></tr>
+      <tr><td></td></td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h3>DNS</h3>
+    <h4>Domain Name System</h4>
+  </section>
+</section>
+
+<section>
+  <h2>URL</h3>
+
+  <section>
+    <h3>Uniform Resource Locator</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+scheme://user:password@host:port/path?query#fragment
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Scheme</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+http://
+https://
+ftp://
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>user:password</h3>
+  </section>
+
+  <section>
+    <h3>host:port</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+facebook.com
+localhost:3000
+127.0.0.1
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>path</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+https://kpp-2018.herokuapp.com/slides/04_1-web
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>query</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+https://www.google.com.ua/search?q=kittens%26puppies&amp;sourceid=chrome
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Percent-encoding</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <td>Символ</td><td>Кодування</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td> (space)</td><td>%20</td></tr>
+        <tr><td>"</td><td>%22</td></tr>
+        <tr><td>%</td><td>%25</td></tr>
+        <tr><td>&amp;</td><td>%26</td></tr>
+        <tr><td>.</td><td>%2E</td></tr>
+      </tbody>
+    </table>
+
+    <p><a href="https://en.wikipedia.org/wiki/Percent-encoding">Детально</a></p>
+  </section>
+
+  <section>
+    <h3>fragment</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+https://github.com/yevhene/kpp-2018#Розділ-1-Термінал-shell
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Приклади</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+scheme://user:password@host:port/path?query#fragment
+    </code></pre>
+
+    <pre><code class="hljs" data-trim contenteditable>
+http://vntu.edu.ua
+https://www.google.com.ua/search?q=kittens%26puppies
+ftp://student:qwerty@fileshare.local:12345/pron
+yevhene@vntu.edu.ua
+magnet:?xl=10826029&amp;dn=kino.mkv&amp;xt=urn:sha1:3I42H3...
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Замовчування</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+http://domain:80/
+https://domain:443/
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <section>
+    <h3>URI</h3>
+    <h4>Uniform Resource Identifier</h4>
+
+    <img src="images/uri.png">
+  </section>
+
+  <section>
+    <h3>URN</h3>
+    <h4>Uniform Resource Name</h4>
+
+    <pre><code class="hljs" data-trim contenteditable>
+urn: isbn:5170224575
+urn: sha1:YNCKHTQCWBTRNJIV4WNAE52SJUQCZO5C
+urn: uuid:6e8bc430-9c3a-11d9-9669-0800200c9a66
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>HTTP</h2>
+
+  <section>
+    <h3>Hyper Text Transfer Protocol</h3>
+  </section>
+</section>
+
+<section>
+  <h2>HTTP Request</h2>
+
+  <section>
+    <h3>Method</h3>
+
+    <ul>
+      <li>GET - read</li>
+      <li>POST - create</li>
+      <li>PUT/PATCH - update</li>
+      <li>DELETE - destroy</li>
+      <li>HEAD, OPTIONS, TRACE, CONNECT, ...</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Request-Line</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+GET /slides/03-api HTTP/1.1
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Request Headers (Host)</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+Host: github.com
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Request Headers (User-Agent)</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/60.0.3112.113 Chrome/60.0.3112.113 Safari/537.36
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Request Headers (Accept)</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br
+Accept-Language: en-US,en;q=0.8
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Request Headers (Referer)</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+Referer: https://github.com
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Request Headers (Cookie)</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+Cookie: user_session=gql8cuZ5DQa6Hs; tz=Europe%2FKiev
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Request Headers (Content-Type)</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+Content-Type: application/json
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Body</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+Content-Type: application/x-www-form-urlencoded
+    </code></pre>
+
+    <pre><code class="hljs" data-trim contenteditable>
+name=Петро%20Петров&amp;rating=4%2E5
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Body</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+Content-Type: multipart/form-data boundary=Asrf456BGe4h
+    </code></pre>
+
+    <pre><code class="hljs" data-trim contenteditable>
+--Asrf456BGe4h
+Content-Disposition: form-data; name="name"
+
+Петро Петров
+--Asrf456BGe4h
+Content-Disposition: form-data; name="ava"; filename="petr.jpg"
+Content-Type: image/jpeg
+Content-Transfer-Encoding: base64
+
+iVBORw0KGgoAAAANSUhEUgAAApYAAAB6CAIAAACKiYSNAAAAA3NCSVQICAjb4U/gAAAAGXRFWHRT
+b2Z0d2FyZQBnbm9tZS1zY3JlZW5zaG907wO/PgAAIABJREFUeJzt3Xd8HPWVAPC3vTdp1S3Jsi33
+...
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Body</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+Content-Type: application/json
+    </code></pre>
+
+    <pre><code class="hljs" data-trim contenteditable>
+{
+  "name": "Петро Петров",
+  "rating": 4.5
+}
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>HTTP in Action</h2>
+
+  <section>
+    <h3>telnet</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$ telnet initki.vntu.edu.ua 80
+    </code></pre>
+
+    <pre><code class="hljs" data-trim contenteditable>
+Trying 194.146.141.4...
+Connected to vntu.edu.ua.
+Escape character is '^]'.
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Request</h3>
+    <pre><code class="hljs" data-trim contenteditable>
+GET / HTTP/1.1
+Host: initki.vntu.edu.ua
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Response</h3>
+    <pre><code class="hljs" data-trim contenteditable>
+HTTP/1.1 200 OK
+Server: nginx/1.13.1
+Date: Mon, 18 Sep 2017 11:27:31 GMT
+Content-Type: text/html; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Keep-Alive: timeout=20
+X-Powered-By: PHP/5.6.30
+Set-Cookie: a648815f634df34a70b69cc2c348209e=fbh58o0tsb8re1ui28nevh1a66; path=/
+P3P: CP="NOI ADM DEV PSAi COM NAV OUR OTRo STP IND DEM"
+Vary: User-Agent
+Expires: Mon, 1 Jan 2001 00:00:00 GMT
+Last-Modified: Mon, 18 Sep 2017 11:27:31 GMT
+Cache-Control: post-check=0, pre-check=0
+Pragma: no-cache
+
+1e78
+&lt;!DOCTYPE html ....
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>HTTP Response</h2>
+
+  <section>
+    <h3>Status-Line</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+HTTP/1.1 200 OK
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Status-Code</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+      1xx: Інформація - Запит отримано, процес продовжується
+      2xx: Успіх - Запит успішно оброблено
+      3xx: Перенаправлення - Необхідно вжити заходів
+      4xx: Помилка Клієнта - Помилка при обробці або виконанні
+      5xx: Помилка Сервера - Сервер не зміг обробити запит
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Response Headers (Server)</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+Server: GitHub.com
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Response Headers (Date)</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+Date: Sun, 03 Sep 2017 19:44:42 GMT
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Response Headers (Content-Type)</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+Content-Type: text/html; charset=utf-8
+Content-Encoding: gzip
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Response Headers (Set-Cookie)</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+Set-Cookie: key=value; key1=value1
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Body</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+&lt;!DOCTYPE html ....
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Cross-origin requests</h2>
+
+  <section>
+    <h3>Image</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+&lt;img src="http://example.com/send-data?name=user" /&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>JSONP</h3>
+    <h4>JSON with padding</h4>
+
+    <pre><code class="hljs" data-trim contenteditable>
+&lt;script
+  type="text/javascript"
+  src="http://example.com/getjson?jsonp=parseResponse"
+&gt;
+&lt;/script&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>CORS</h3>
+    <h4>Cross-Origin Resource Sharing</h4>
+
+    <pre><code class="hljs" data-trim contenteditable>
+OPTIONS /
+Host: service.example.com
+Origin: http://www.example.com
+    </code></pre>
+
+    <pre><code class="hljs" data-trim contenteditable>
+Access-Control-Allow-Origin: http://www.example.com
+Access-Control-Allow-Methods: PUT, DELETE
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Інструменти</h2>
+
+  <section>
+    <h3>curl</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+curl -X POST \
+     -H 'Content-Type: application/json' \
+     -d '{"data": 1}' \
+     http://google.com
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Postman</h3>
+
+    <img src="images/postman.png">
+  </section>
+</section>
+
+<section>
+  <h2>Питання?</h2>
+</section>

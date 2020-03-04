@@ -1,0 +1,661 @@
+<section>
+  <h1>Форми</h1>
+</section>
+
+<section>
+  <h2>form</h2>
+
+  <section>
+    <h3>HTML елемент</h3>
+
+    <p><b>method</b> - може бути лише GET і POST<p>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+&lt;form id="new_task" method="POST" action="/tasks"&gt;
+  &lt;!-- елементи керування --&gt;
+&lt;/form&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Елементи керування</h3>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+&lt;form id="new_task" method="POST" action="/tasks"&gt;
+  &lt;input type="text" name="name" /&gt;
+
+  &lt;input type="submit" value="Створити нову задачу" /&gt;
+&lt;/form&gt;
+    </code></pre>
+
+    <img src="images/simple-form.png" />
+  </section>
+
+  <section>
+    <h3>Підписи</h3>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+&lt;form id="new_task" method="POST" action="/tasks"&gt;
+  &lt;label for="new_task_name"&gt;Назва&lt;/label&gt;
+  &lt;input id="new_task_name" type="text" name="name" /&gt;&lt;br /&gt;
+
+  &lt;label&gt;
+    Деталі &lt;input type="text" name="details" /&gt;&lt;br /&gt;
+  &lt;/label&gt;
+
+  &lt;input type="submit" value="Створити нову задачу" /&gt;
+&lt;/form&gt;
+    </code></pre>
+
+    <img src="images/form-labels.png" />
+  </section>
+
+  <section>
+    <h3>Групи полів</h3>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+&lt;form id="new_user" method="POST" action="/users"&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;Персональні дані:&lt;/legend&gt;
+    ФІО: &lt;input type="text" name="first_name" /&gt;&lt;br/&gt;
+  &lt;/fieldset&gt;
+
+  &lt;fieldset&gt;
+    &lt;legend&gt;Оцінки:&lt;/legend&gt;
+    КПП: &lt;input type="text" name="scores[kpp]" /&gt;&lt;br/&gt;
+  &lt;/fieldset&gt;
+
+  &lt;input type="submit" value="Створити нову задачу" /&gt;
+&lt;/form&gt;
+    </code></pre>
+
+    <img src="images/form-with-groups.png" />
+  </section>
+</section>
+
+<section>
+  <h2>body-parser</h2>
+
+  <section>
+    <h3>Інсталяція</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+npm install --save body-parser
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Використання</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const bodyParser = require('body-parser');
+
+// Для форм (application/x-www-form-urlencoded)
+app.use(bodyParser.urlencoded({ extended: false }));
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Форма</h3>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+&lt;form action="/tasks" method="post"&gt;
+  &lt;input name="title" type="text" /&gt;
+  &lt;input type="submit" /&gt;
+&lt;/form&gt;
+    </code></pre>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+app.post('/tasks', function (req, res) {
+  // req.body.title
+});
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>input</h2>
+
+  <section>
+    <h3>Текстові</h3>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+User:
+&lt;input type="text" name="user" placeholder="Your login" /&gt;&lt;br/&gt;
+Pass:
+&lt;input type="password" name="pass" /&gt;
+    </code></pre>
+
+    <img src="images/form-inputs-text.png" />
+  </section>
+
+  <section>
+    <h3>Для вибору</h3>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+Що таке JavaScript?&lt;br /&gt;
+&lt;label&gt;
+  &lt;input type="radio" name="question[0]" value="a" checked /&gt;
+  a. Мова програмування
+&lt;/label&gt;&lt;br /&gt;
+&lt;label&gt;
+  &lt;input type="radio" name="question[0]" value="b" /&gt;
+  b. Чорна магія
+&lt;/label&gt;&lt;br /&gt;
+    </code></pre>
+
+    <img src="images/form-inputs-radios.png" />
+  </section>
+
+  <section>
+    <h3>Для вибору (декілька варіантів)</h3>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+Де використовується JavaScript?&lt;br /&gt;
+&lt;label&gt;
+  &lt;input type="checkbox" name="question[1]" value="a" checked /&gt;
+  a. На сервері
+&lt;/label&gt;&lt;br /&gt;
+&lt;label&gt;
+  &lt;input type="checkbox" name="question[1]" value="b" checked /&gt;
+  b. На мобільних
+&lt;/label&gt;
+    </code></pre>
+
+    <img src="images/form-inputs-checks.png" />
+  </section>
+
+  <section>
+    <h3>Файлові</h3>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+&lt;input type="file" name="doc" /&gt;
+    </code></pre>
+
+    <img src="images/form-inputs-file.png" />
+  </section>
+
+  <section>
+    <h3>Приховані</h3>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+&lt;input type="hidden" name="user_id" value="1" /&gt;
+    </code></pre>
+
+    <img src="images/form-inputs-hidden.png" />
+  </section>
+
+  <section>
+    <h3>Керуючі</h3>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+&lt;input type="submit" value="Відправити" /&gt;&lt;br/&gt;
+&lt;input type="button" value="Виконати дію" onclick="do()" /&gt;&lt;br/&gt;
+&lt;input type="reset" value="Скинути" /&gt;
+    </code></pre>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+&lt;input type="image" src="button.png" /&gt;&lt;br/&gt;
+    </code></pre>
+
+    <img src="images/form-inputs-buttons.png" />
+  </section>
+</section>
+
+<section>
+  <h2>Атрибути</h2>
+
+  <section>
+    <h3>Ідентифікуючі</h3>
+
+    <ul>
+      <li><b>id</b> - глобальний ідентифікатор елемента;</li>
+      <li><b>name</b> - ім'я під яким значення елементу буде відомо на сервері.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Значення</h3>
+
+    <ul>
+      <li><b>placeholder</b> - текст у елементі, в якому ще немає даних;</li>
+      <li><b>value</b> - значення елемента керування.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Керування авто-поведінкою</h3>
+
+    <ul>
+      <li><b>autocomplete</b> - ввімкнути/вимкнути автодоповнення (за замовченням true);</li>
+      <li><b>tabindex</b> - порядкивий номер при переключенні за допомогою tab.</li>
+      <li><b>autofocus</b> - елемент що буде вибраний першим.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Відключення</h3>
+
+    <ul>
+      <li><b>disabled</b> - елемент не редагується і не відправляється на сервер;</li>
+      <li><b>readonly</b> - елемент не редагується.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Керування формою</h3>
+
+    <ul>
+      <li><b>form</b> - id форми до якої відноситься елемент;</li>
+      <li><b>formaction</b> - для елементів type="submit", дозволяє відправити форму але з іншим action;</li>
+      <li><b>formmethod</b> - для елементів type="submit", дозволяє відправити форму але з іншим method.</li>
+    </ul>
+  </section>
+</section>
+
+<section>
+  <h2>Елементи керування</h2>
+
+  <section>
+    <h3>textarea</h3>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+&lt;textarea name="about"&gt;Hello&lt;/textarea&gt;
+    </code></pre>
+
+    <img src="images/form-textarea.png" />
+  </section>
+
+  <section>
+    <h3>button</h3>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+&lt;button onclick="run()"&gt;Click me&lt;/button&gt;
+    </code></pre>
+
+    <img src="images/form-button.png" />
+  </section>
+
+  <section>
+    <h3>select</h3>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+&lt;select name="group_id"&gt;
+  &lt;option value="" disabled selected&gt;Select your option&lt;/option&gt;
+  &lt;option value="1"&gt;1-КН-16&lt;/option&gt;
+  &lt;option value="32"&gt;2-КН-16&lt;/option&gt;
+  &lt;option value="17"&gt;3-КН-16&lt;/option&gt;
+&lt;/select&gt;
+    </code></pre>
+
+    <img src="images/form-select.png" />
+  </section>
+
+  <section>
+    <h3>select (multiple)</h3>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+&lt;select name="group_id" multiple&gt;
+  &lt;option value="1" selected&gt;1-КН-16&lt;/option&gt;
+  &lt;option value="32"&gt;2-КН-16&lt;/option&gt;
+  &lt;option value="17"&gt;3-КН-16&lt;/option&gt;
+&lt;/select&gt;
+    </code></pre>
+
+    <img src="images/form-select-multiple.png" />
+  </section>
+
+  <section>
+    <h3>select (optgroup)</h3>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+&lt;select&gt;
+  &lt;optgroup label="Swedish Cars"&gt;
+    &lt;option value="volvo"&gt;Volvo&lt;/option&gt;
+    &lt;option value="saab"&gt;Saab&lt;/option&gt;
+  &lt;/optgroup&gt;
+  &lt;optgroup label="German Cars"&gt;
+    &lt;option value="mercedes"&gt;Mercedes&lt;/option&gt;
+    &lt;option value="audi"&gt;Audi&lt;/option&gt;
+  &lt;/optgroup&gt;
+&lt;/select&gt;
+    </code></pre>
+
+    <img src="images/form-select-optgroup.png" />
+  </section>
+
+  <section>
+    <h3>datalist</h3>
+
+    <input list="browsers">
+
+    <datalist id="browsers">
+      <option value="Internet Explorer">
+      <option value="Firefox">
+      <option value="Chrome">
+      <option value="Opera">
+      <option value="Safari">
+    </datalist>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+&lt;input list="browsers"&gt;
+
+&lt;datalist id="browsers"&gt;
+  &lt;option value="Internet Explorer"&gt;
+  &lt;option value="Firefox"&gt;
+  &lt;option value="Chrome"&gt;
+  &lt;option value="Opera"&gt;
+  &lt;option value="Safari"&gt;
+&lt;/datalist&gt;
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Валідація</h2>
+
+  <section>
+    <h3>input[type]</h3>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+&lt;form&gt;
+  Email: &lt;input type="email" /&gt;
+  &lt;input type="submit"&gt;
+&lt;/form&gt;
+    </code></pre>
+
+    <img src="images/form-validation-type.png" />
+  </section>
+
+  <section>
+    <h3>input[type]</h3>
+
+    <table>
+      <thead>
+        <tr><th>type</th><th>input</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>type="email"</td><td><input type="email" /></td></td>
+        <tr><td>type="color"</td><td><input type="color" /></td></td>
+        <tr><td>type="date"</td><td><input type="date" /></td></td>
+        <tr><td>type="datetime-local"</td><td><input type="datetime-local" /></td></td>
+        <tr><td>type="month"</td><td><input type="month" /></td></td>
+        <tr><td>type="number"</td><td><input type="number" /></td></td>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h3>input[type]</h3>
+
+    <table>
+      <thead>
+        <tr><th>type</th><th>input</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>type="range"</td><td><input type="range" /></td></td>
+        <tr><td>type="search"</td><td><input type="search" /></td></td>
+        <tr><td>type="tel"</td><td><input type="tel" /></td></td>
+        <tr><td>type="time"</td><td><input type="time" /></td></td>
+        <tr><td>type="url"</td><td><input type="url" /></td></td>
+        <tr><td>type="week"</td><td><input type="week" /></td></td>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h3>input (атрибути)</h3>
+
+    <table>
+      <thead>
+        <tr><th>Атрибут</th><th>Обмеження</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>max</td><td>Максимальне значення числового поля</td></td>
+        <tr><td>min</td><td>Мінімальне значення числового поля</td></td>
+        <tr><td>maxlength</td><td>Максимальна довжина тексового поля</td></td>
+        <tr><td>pattern</td><td>Регулярний вираз для перевірки</td></td>
+        <tr><td>required</td><td>Обов'язкове</td></td>
+        <tr><td>step</td><td>Крок поля діапазону</td></td>
+      </tbody>
+    </table>
+  </section>
+</section>
+
+<section>
+  <h2>Валідація (серверна)</h2>
+
+  <section>
+    <h3>Рендеринг форми</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+app.get('/tasks/new', function(req, res) {
+  res.render('tasks/new');
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Валідація</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function validateTask(task) {
+  const errors = {};
+  if (!task.name || task.name.length == 0) {
+    errors['name'] = ['Не має бути пустим'];
+  }
+  return errors;
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Обробка даних</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+app.post('/tasks', function(req, res) {
+  const task = req.body;
+  const errors = validateTask(task);
+  if (Object.keys(errors).length == 0) {
+    req.flash('info', 'Задачу успішно створено!');
+    res.redirect('/tasks');
+  } else {
+    req.render('tasks/new', { task, errors });
+  }
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Форма</h3>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+&lt;form action="/tasks" method="post"&gt;
+  &lt;input type="text" name="name" value="&lt;%= task &amp;&amp; task.name %&gt;" /&gt;
+  &lt;% if (errors &amp;&amp; errors.name) { %&gt;
+    &lt;p class="error"&gt;&lt;%= errors.name.join(' ') %&gt;&lt;/p&gt;
+  &lt;% } %&gt;
+
+  &lt;input type="submit" value="Створити задачу" /&gt;
+&lt;/form&gt;
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Доступ до форми з JavaScript</h2>
+
+  <section>
+    <h3>FormData</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const formElement = document.querySelector('form');
+const formData = new FormData(formElement);
+
+formData.append('serialnumber', serialNumber++);
+const request = new XMLHttpRequest();
+request.open('POST', 'http://example.com/submitform');
+request.send(formData);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>FormData (власна)</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const formData = new FormData();
+
+formData.append('username', 'Groucho');
+formData.append('accountnum', 123456);
+
+// File
+formData.append('userfile', fileInputElement.files[0]);
+
+// Blob
+const content = '{"custom": "data"}';
+const blob = new Blob([content], { type: 'text/json'});
+
+formData.append('webmasterfile', blob);
+
+var request = new XMLHttpRequest();
+request.open('POST', 'http://example.com/submitform');
+request.send(formData);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>FormData (canvas)</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const formElement = document.querySelector('form');
+const formData = new FormData(formElement);
+
+canvas.toBlob(function(blob) {
+  formData.append('field-name', blob, 'upload.png');
+}, 'image/png');
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>FileReader</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+function previewFile() {
+  const preview = document.querySelector('img');
+  const file    = document.querySelector('#file').files[0];
+  const reader  = new FileReader();
+
+  reader.onloadend = function () {
+    preview.src = reader.result;
+  }
+
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    preview.src = '';
+  }
+}
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>csurf</h2>
+
+  <section>
+    <h3>Проблема</h3>
+
+    <p>Відправку форми можна підробити</p>
+  </section>
+
+  <section>
+    <h3>Встановлення</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+npm install --save csurf
+    </code></pre>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const cookieParser = require('cookie-parser')
+const csrf = require('csurf')
+const express = require('express')
+
+const app = express()
+
+app.use(cookieParser())
+app.use(csrf({ cookie: true }))
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Використання (сервер)</h3>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+app.get('/form', function(req, res) {
+  res.render('send', { csrfToken: req.csrfToken() })
+})
+
+app.post('/process', function (req, res) {
+  res.send('csrf was required to get here')
+})
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Використання (браузер)</h3>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+&lt;form action="/process" method="POST"&gt;
+  &lt;input type="hidden" name="_csrf" value="&lt;%= csrfToken %&gt;"&gt;
+  &lt;!-- inputs --&gt;
+&lt;/form&gt;
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>method-override</h2>
+
+  <section>
+    <h3>Проблема</h3>
+
+    <p>Стандарт HTML надає можливість формам виористовувати тільки методи GET і POST.</p>
+  </section>
+
+  <section>
+    <h3>Встановлення</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+npm install --save method-override
+    </code></pre>
+
+    <pre><code class="javascript hljs" data-trim contenteditable>
+const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
+
+app.use(bodyParser.urlencoded())
+
+// Після bodyParser
+app.use(methodOverride('_method'))
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Використання</h3>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+&lt;form method="POST" action="/resource"&gt;
+  &lt;input type="hidden" name="_method" value="DELETE"&gt;
+  &lt;button type="submit"&gt;Видалити&lt;/button&gt;
+&lt;/form&gt;
+    </code></pre>
+
+    <pre><code class="html hljs" data-trim contenteditable>
+&lt;a href="/resource?_method=DELETE"&gt;Видалити&lt;/a&gt;
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Питання?</h2>
+</section>

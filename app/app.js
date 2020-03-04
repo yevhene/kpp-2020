@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 
 const markdown = require('./lib/markdown');
+const config = require('../config');
 
 const app = express();
 
@@ -20,14 +21,13 @@ app.use('/assets/github-markdown.css', express.static(
 
 app.use('/slides', require('../slides/app'));
 
-markdown.routes(app, '/', path.join(__dirname, '../'));
-markdown.routes(app, '/docs', path.join(__dirname, '../docs'));
-markdown.routes(app, '/labs', path.join(__dirname, '../labs'));
+markdown.routes(app, '/', path.join(__dirname, '../'), config);
+markdown.routes(app, '/docs', path.join(__dirname, '../docs'), config);
+markdown.routes(app, '/labs', path.join(__dirname, '../labs'), config);
 
 app.use('/posts', express.static(path.join(__dirname, '../posts/images')));
 
-const port = process.env.PORT || 3000;
-
+const port = config.port;
 app.listen(port, () => {
   console.log(`App listening http://localhost:${port} port`)
 });
