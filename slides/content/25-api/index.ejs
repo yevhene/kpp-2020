@@ -1,0 +1,465 @@
+<section>
+  <h1>API</h1>
+</section>
+
+<section>
+  <h2>API</h2>
+
+  <section>
+    <h3>Application Programming Interface</h3>
+  </section>
+
+  <section>
+    <h3>Види</h3>
+
+    <ul>
+      <li>Object (JavaScript Math)</li>
+      <li>Library (JQuery)</li>
+      <li>External library (COM, ActiveX)</li>
+      <li>OS System Calls (WIN32, Linux)</li>
+      <li>RPC (CORBA, DCOM, SOAP, .NET WCF)</li>
+      <li>Web (REST, GraphQL)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Object</h3>
+    <h4>JavaScript Math Object</h4>
+
+    <pre><code class="hljs" data-trim contenteditable>
+Math.pow(2, 3)
+    </code></pre>
+
+    <a href="https://developer.mozilla.org/uk/docs/Web/JavaScript/Reference/Global_Objects/Math">Source</a>
+  </section>
+
+  <section>
+    <h3>Library</h3>
+    <h4>JQuery</h4>
+
+    <pre><code class="hljs" data-trim contenteditable>
+jQuery.ajax('http://example.com')
+    </code></pre>
+
+    <a href="https://api.jquery.com/jQuery.ajax/">Source</a>
+  </section>
+
+  <section>
+    <h3>External library</h3>
+    <h4>COM</h4>
+
+    <pre><code class="hljs" data-trim contenteditable>
+class CComponent:public IComponent
+{
+public:
+   virtual HRESULT __stdcall QueryInterface(
+       const IID&amp; iid, void** ppv
+   );
+   virtual ULONG __stdcall AddRef(){return 0;}
+   virtual ULONG __stdcall Release(){return 0;}
+
+   virtual void __stdcall Print(const char* msg);
+};
+    </code></pre>
+
+    <a href="https://www.codeproject.com/Articles/6726/COM-from-scratch-PART-ONE">Source</a>
+  </section>
+
+  <section>
+    <h3>OS System Calls</h3>
+    <h4>WIN32</h4>
+
+    <pre><code class="hljs" data-trim contenteditable>
+int WINAPI MessageBox(
+  _In_opt_ HWND    hWnd,
+  _In_opt_ LPCTSTR lpText,
+  _In_opt_ LPCTSTR lpCaption,
+  _In_     UINT    uType
+);
+    </code></pre>
+
+    <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms645505(v=vs.85).aspx">Source</a>
+  </section>
+
+  <section>
+    <h3>Web (RPC)</h3>
+    <h4>SOAP</h4>
+
+    <pre><code class="hljs" data-trim contenteditable>
+&lt;soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"&gt;
+   &lt;soap:Body&gt;
+     &lt;getProductDetails xmlns="http://warehouse.example.com/ws"&gt;
+       &lt;productID&gt;12345&lt;/productID&gt;
+     &lt;/getProductDetails&gt;
+   &lt;/soap:Body&gt;
+&lt;/soap:Envelope&gt;
+    </code></pre>
+
+    <a href="https://ru.wikipedia.org/wiki/SOAP">Source</a>
+  </section>
+
+  <section>
+    <h3>Web</h3>
+    <h4>GraphQL</h4>
+
+    <pre><code class="hljs" data-trim contenteditable>
+type Starship {
+  id: ID!
+  name: String!
+  length(unit: LengthUnit = METER): Float
+}
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Формати</h2>
+
+  <section>
+    <h3>CSV</h3>
+    <h4>Comma-Separated Values</h4>
+
+    <pre><code class="hljs" data-trim contenteditable>
+1997,Ford,E350,"ac, abs, moon",3000.00
+1999,Chevy,"Venture «Extended Edition»","",4900.00
+1996,Jeep,Grand Cherokee,"MUST SELL! air, moon roof, loaded",4799.00
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>XML</h3>
+    <h4>eXtensible Markup Language</h4>
+
+    <pre><code class="hljs" data-trim contenteditable>
+&lt;?xml version="1.0" encoding="UTF-8" standalone="yes"?&gt;
+&lt;mediawiki xmlns="http://www.mediawiki.org/xml/export-0.3/" xml:lang="uk"&gt;
+  &lt;page&gt;
+    &lt;title&gt;Фукідід&lt;/title&gt;
+    &lt;id&gt;1529&lt;/id&gt;
+    &lt;revision&gt;
+      &lt;id&gt;4382&lt;/id&gt;
+      &lt;timestamp&gt;2006-09-18T22:11:53Z&lt;/timestamp&gt;
+      &lt;minor /&gt;
+      &lt;comment&gt;Interwiki&lt;/comment&gt;
+      &lt;text xml:space="preserve"&gt;{{Wikipedia}}
+*Історія — це філософія в прикладах.
+&lt;/text&gt;
+    &lt;/revision&gt;
+  &lt;/page&gt;
+&lt;/mediawiki&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>JSON</h3>
+    <h4>JavaScript Object Notation</h4>
+
+    <pre><code class="hljs" data-trim contenteditable>
+{
+  "firstName": "Іван",
+  "lastName": "Коваленко",
+  "address": {
+    "streetAddress": "вул. Грушевського 14, кв.101",
+    "city": "Київ",
+    "postalCode": 21000
+  },
+  "phoneNumbers": [
+    "044 123-1234",
+    "050 123-4567"
+  ]
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>BSON</h3>
+    <h4>Binary javaScript Object Notation</h4>
+
+    <img src="images/bson.png" />
+  </section>
+</section>
+
+<section>
+  <h2>REST</h2>
+
+  <section>
+    <h3>Representational State Transfer</h3>
+  </section>
+
+  <section>
+    <h3>Властивості (за Роєм Філдінгом)</h3>
+
+    <ul>
+      <li>Клієнт-серверна архітектура</li>
+      <li>Відстуність стану</li>
+      <li>Кешованість</li>
+      <li>Шари</li>
+      <li>Уніфікація інтерфесу</li>
+      <li>Код на вимогу (опціонально)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Ресурси</h3>
+
+    <table>
+      <thead>
+        <tr><th rowspan="2">Метод</th><th>Колекція</th><th>Ресурс</th></tr>
+        <tr><th>/users</th><th>/users/:id</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>GET</td><td>Список</td><td>Представлення</td></tr>
+        <tr><td>PUT</td><td>Заміна колекції</td><td>Заміна або створення</td></tr>
+        <tr><td>PATCH</td><td>-</td><td>Оновлення</td></tr>
+        <tr><td>POST</td><td>Створення</td><td>-</td></tr>
+        <tr><td>DELETE</td><td>Видалення колекції</td><td>Видалення</td></tr>
+      </tbody>
+    </table>
+  </section>
+</section>
+
+<section>
+  <h2>GraphQL</h2>
+
+  <section>
+    <img src="images/graphql.png" />
+  </section>
+
+  <section>
+    <h3>Query</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+query {
+  stuff {
+    eggs
+    shirt
+    pizza
+  }
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Nested Query</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+query {
+  posts { # this is an array
+    title
+    body
+    author { # we can go deeper!
+      name
+      avatarUrl
+      profileUrl
+    }
+  }
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Query with Parameters</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+query {
+  post(id: 12){
+    title
+    body
+    author{
+      name
+      avatarUrl
+      profileUrl
+    }
+  }
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Anatomy of Query</h3>
+
+    <img src="images/graphql-query.png" />
+  </section>
+
+  <section>
+    <h3>Mutation</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+mutation CreateReviewForEpisode($ep: Episode!, $review: ReviewInput!) {
+  createReview(episode: $ep, review: $review) {
+    stars
+    commentary
+  }
+}
+    </code></pre>
+
+    <pre><code class="hljs" data-trim contenteditable>
+{
+  "ep": "JEDI",
+  "review": {
+    "stars": 5,
+    "commentary": "This is a great movie!"
+  }
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>GraphQL Gihtub Explorer</h3>
+
+    <div>
+      <img src="images/graphql-github-explorer.gif" />
+    </div>
+
+    <div>
+      <a href="https://developer.github.com/v4/explorer/">https://developer.github.com/v4/explorer</a>
+    </div>
+  </section>
+
+  <section>
+    <h3>apollo-client (Install)</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+npm install apollo-boost graphql-tag graphql --save
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>apollo-client (Setup)</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+import ApolloClient from 'apollo-boost';
+
+const client = new ApolloClient({
+  uri: 'https://graphql.example.com'
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>apollo-client (Query)</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+import gql from 'graphql-tag';
+
+client.query({
+  query: gql`
+    query TodoApp {
+      todos {
+        id
+        text
+        completed
+      }
+    }
+  `,
+})
+  .then(data =&gt; console.log(data))
+  .catch(error =&gt; console.error(error));
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Type definitions</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+const typeDefs = `
+  type Author {
+    id: ID! # ! required
+    firstName: String
+    lastName: String
+    posts: [Post]
+  }
+
+  type Post {
+    id: ID!
+    title: String
+    author: Author
+    votes: Int
+  }
+`;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Resolvers</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+const resolvers = {
+  Query: {
+    post(root, args) {
+      return Posts.find({ id: args.id });
+    }
+  },
+  Post: {
+    author(post) {
+      return Users.find({ id: post.authorId})
+    }
+  }
+};
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>graphql-tools</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+import { makeExecutableSchema } from 'graphql-tools';
+
+const executableSchema = makeExecutableSchema({
+  typeDefs,
+  resolvers
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>apollo-server</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+npm install apollo-server-express --save
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>apollo-server-express</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+import express from 'express';
+import bodyParser from 'body-parser';
+import {
+  graphqlExpress, graphiqlExpress
+} from 'apollo-server-express';
+
+const app = express();
+
+app.use('/graphql',
+  bodyParser.json(),
+  graphqlExpress({ schema })
+);
+app.get('/graphiql', graphiqlExpress({
+  endpointURL: '/graphql'
+}));
+
+app.listen(3000);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>GraphiQL</h3>
+
+    <img src="images/graphiql.png" />
+  </section>
+</section>
+
+<section>
+  <h2>Посилання</h2>
+
+  <ul>
+    <li><a href="http://graphql.org">GraphQL docs</a></li>
+    <li><a href="https://medium.freecodecamp.org/so-whats-this-graphql-thing-i-keep-hearing-about-baf4d36c20cf">About GraphQL</a></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Питання?</h2>
+</section>
