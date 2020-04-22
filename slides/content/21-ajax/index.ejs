@@ -1,0 +1,354 @@
+<section>
+  <h1>AJAX</h1>
+</section>
+
+<section>
+  <h2>AJAX</h2>
+
+  <section>
+    <h2>XMLHttpRequest (XHR)</h2>
+
+    <ul>
+      <li>XMLHttpRequest об'єкт був створений розробниками Outlook Web Access (Microsoft) для Microsoft Exchange Server 2000;</li>
+      <li>Інтерфейс IXMLHTTPRequest був включений у другу версію бібліотеки MSXML;</li>
+      <li>Друга версія MSXML була включенв в Internet Explorer 5.0, що був випущений в Березні 1999-го. Дозволяючи, через ActiveX, працювати з IXMLHTTPRequest через обгортку XMLHTTP до MSXML.</li>
+      <li>Google використала в Gmail (2004) і Google Maps (2005).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Asynchronous Javascript and XML</h3>
+
+    <p>Термін вперше використаний 18 лютого 2005 року, в статті Jesse James Garrett <a href="https://web.archive.org/web/20131103181644/http://www.adaptivepath.com/ideas/ajax-new-approach-web-applications/">Ajax: A New Approach to Web Applications"</a>.</p>
+  </section>
+
+  <section>
+    <h2>Складові (історичні)</h2>
+
+    <ul>
+      <li>HTML (або XHTML) і CSS для презентації</li>
+      <li>Document Object Model (DOM) для динамічного відображення</li>
+      <li>JSON або XML для передачі даних та XSLT для маніпуляції над ними</li>
+      <li>XMLHttpRequest об'єкт для асинхронної комунікації</li>
+      <li>JavaScript для з'єднання технологій</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Приклад коду (історичний)</h2>
+
+    <pre><code class="hljs" data-trim contenteditable>
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'send-ajax-data.php');
+
+xhr.onreadystatechange = function () {
+  var DONE = 4; // readyState 4 means the request is done.
+  var OK = 200; // status 200 is a successful return.
+  if (xhr.readyState === DONE) {
+    if (xhr.status === OK) {
+      console.log(xhr.responseText);
+    } else {
+      console.log('Error: ' + xhr.status);
+    }
+  }
+};
+
+xhr.send(null);
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>jQuery.ajax</h2>
+
+  <section>
+    <h3>Запит</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$.ajax('/students')
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Отримання даних</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$.ajax('/students')
+  .success((data, status, jqXHR) =&gt; {
+    console.log(data);
+  })
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Обробка помилок</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$.ajax('/students')
+  .success((data, status, jqXHR) =&gt; {
+    console.log(data);
+  })
+  .error((jqXHR, status, error) =&gt; {
+    console.log(error);
+  })
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Відправка даних</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$.ajax('/students', {
+  method: 'POST',
+  contentType: 'application/json',
+  headers: {
+    'Authentication': 'bearer 4f8a27cb'
+  },
+  data: {
+    name: 'Петро Петровський',
+    group: '4КН-16б'
+  }
+})
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>fetch</h2>
+
+  <section>
+    <h3>Запит</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+fetch('/students')
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Отримання даних</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+fetch('/students')
+  .then((response) =&gt; response.json())
+  .then((data) =&gt; {
+    console.log(data);
+  ))
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Обробка помилок</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+fetch('/students')
+  .then((response) =&gt; response.json())
+  .then((data) =&gt; {
+    console.log(data);
+  ))
+  .catch((error) =&gt; {
+    console.log(error);
+  })
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Відправка даних</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+fetch('/students', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authentication': 'bearer 4f8a27cb'
+  },
+  body: JSON.stringify({
+    name: 'Петро Петровський',
+    group: '4КН-16б'
+  })
+})
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Відправка даних з форми</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+const form = document.querySelector('form');
+const data = new FormData(form);
+
+fetch('/students', {
+  method: 'POST',
+  body: data
+})
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Cross-origin requests</h2>
+
+  <section>
+    <img src="images/cors.png" />
+  </section>
+
+  <section>
+    <h3>Image</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+&lt;img src="http://example.com/send-data?name=user" /&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>JSONP</h3>
+    <h4>JSON with padding</h4>
+
+    <pre><code class="hljs" data-trim contenteditable>
+&lt;script
+  type="text/javascript"
+  src="http://example.com/getjson?jsonp=parseResponse"
+&gt;
+&lt;/script&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>CORS</h3>
+    <h4>Cross-Origin Resource Sharing</h4>
+
+    <pre><code class="hljs" data-trim contenteditable>
+OPTIONS /
+Host: service.example.com
+Origin: http://www.example.com
+    </code></pre>
+
+    <pre><code class="hljs" data-trim contenteditable>
+Access-Control-Allow-Origin: http://www.example.com
+Access-Control-Allow-Methods: PUT, DELETE
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>CORS (preflight)</h3>
+
+    <img src="images/cors-preflight.png" />
+  </section>
+
+  <section>
+    <h3>cors (express)</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+const express = require('express');
+const cors = require('cors');
+const app = express();
+
+app.use(cors({
+  origin: 'http://example.com',
+  // some legacy browsers (IE11, various SmartTVs) choke on 204
+  optionsSuccessStatus: 200
+}));
+
+app.get('/products/:id', function(req, res) {
+  // ...
+});
+
+app.listen(3000);
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Інтеграція</h2>
+
+  <section>
+    <h3>Автентифікація та авторизація</h3>
+  </section>
+
+  <section>
+    <h3>none</h3>
+  </section>
+
+  <section>
+    <h3>apiKey</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+https://weather.com?appid=1b5ee5a1a74d621b5ee5a1a74d62
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Oauth2</h2>
+
+  <section>
+    <h3>Predecestors</h3>
+
+    <ul>
+      <li>OpenID</li>
+      <li>oauth</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Actors</h3>
+
+    <ul>
+      <li>client (website)</li>
+      <li>user (you)</li>
+      <li>provider (public well-known website)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Process: Registration</h3>
+
+    <ul>
+      <li>-&gt; hosts</li>
+      <li>&lt;- App ID</li>
+      <li>&lt;- App Secret</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Process: Request</h3>
+
+    <ul>
+      <li>scope</li>
+      <li>redirect_uri</li>
+      <li>state (entity id)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Process: Request example</h3>
+
+    <img src="images/facebook.png" />
+  </section>
+
+  <section>
+    <h3>Process: Redirect</h3>
+
+    <ul>
+      <li>state (entity id)</li>
+      <li>code (transaction id)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Process: Request Token</h3>
+
+    <ul>
+      <li>app_id</li>
+      <li>app_secret</li>
+      <li>code</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Process: Refresh Token</h3>
+  </section>
+</section>
+
+<section>
+  <h2>Питання?</h2>
+</section>

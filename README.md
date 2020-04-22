@@ -145,3 +145,38 @@
   - Асинхронні ітератори;
   - koa.js.
 - [Слайди](/slides/17-async)
+
+#### Лекція 18: Браузерні технології
+- Теми:
+  - HTML, DOM;
+  - CSS, селектори;
+  - Bootstrap.
+- [Слайди](/slides/18-browser)
+
+#### Лекція 19 JavaScript HTML5 API
+- Теми:
+  - Інтеграція JavaScript із браузером;
+  - HTML5 APIs (geolocation, canvas, history).
+- [Слайди](/slides/19-html5)
+
+#### Лекція 20: jQuery
+- Теми:
+  - Пошук;
+  - Маніпуляція;
+  - Анімація.
+- [Слайди](/slides/20-jquery)
+
+#### Лекція 21: API
+- Теми:
+  - API (Види, формати);
+  - REST;
+  - GraphQL.
+- [Слайди](/slides/21-api)
+
+#### Лекція 22: AJAX
+- Теми:
+  - Історія;
+  - Інструменти (jQuery.ajax, fetch);
+  - Автентифікація;
+  - CORS.
+- [Слайди](/slides/22-ajax)

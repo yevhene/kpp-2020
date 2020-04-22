@@ -1,0 +1,13 @@
+<script src="../lib/jquery.js"></script>
+
+<button id="clickme" style="width: 100px; height: 200px; background-color: red">Click me</button>
+
+<script>
+$('#clickme').click(function() {
+  $(this).animate({
+    opacity: 0.25,
+    width: '+=100',
+    height: 'toggle'
+  }, 5000, 'swing');
+});
+</script>

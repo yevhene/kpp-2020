@@ -1,0 +1,424 @@
+<section>
+  <h1>jQuery</h1>
+</section>
+
+<section>
+  <h2>Маніпуляція DOM</h2>
+
+  <section>
+    <h2>Структура</h2>
+
+    <img src="images/dom-tree.png" />
+  </section>
+
+  <section>
+    <h2>Термінологія</h2>
+
+    <ul>
+      <li><b>Вузол (node)</b> - вузол в дереві. Вузли бувають двох типів (тесктові вузли і елементи);</li>
+      <li><b>Текстовий вузол (text node)</b> - Вузол який містить текст;</li>
+      <li><b>Елемент (element)</b> - вузол який містить HTML-елемент. Може мати дочірні елементи.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Робота з вузлами</h3>
+
+    <ul>
+      <li><b>isEqualNode(node, another)</b> - перевіряє чи це той самий вузол.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Робота з дочірніми елементами</h3>
+
+    <ul>
+      <li><b>hasChildNodes()</b> - перевіряє наявність дочірніх вузлів;</li>
+      <li><b>childNodes</b> - перелік дочірніх вузлів;</li>
+      <li><b>firstChild</b> - перший дочірній вузол;</li>
+      <li><b>lastChild</b> - останній дочірній вузол.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Робота з сусідніми вузлами</h3>
+
+    <ul>
+      <li><b>nextSibling</b> - попередній сусід;</li>
+      <li><b>previousSibling</b> - наступний сусід.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Робота з батьківським елементом</h3>
+
+    <ul>
+      <li><b>parentElement</b> - батьківський елемент.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Нові вузли</h3>
+
+    <ul>
+      <li><b>createElement('div')</b> - сворити елемент;</li>
+      <li><b>createTextNode('text')</b> - створити текстовий вузол;</li>
+      <li><b>cloneNode(node)</b> - скіпіювати (глибоко) вузол.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Маніпуляція дочірніми вузлами</h3>
+
+    <ul>
+      <li><b>appendChild(node)</b> - Вставити вузол в кінець списку дочірніх елементів;</li>
+      <li><b>insertBefore(node, another)</b> - Вставити вузол перед іншим вузлом;</li>
+      <li><b>removeChild(node)</b> - Відкріпити вузол;</li>
+      <li><b>replaceChild(node)</b> - Замінити вузол.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Атрибути</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+const el = document.queryElement('#main');
+el.class = "visible";
+el.value = 12;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Стилі</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+const el = document.queryElement('#main');
+el.style.backgroundColor = 'red';
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Нові атрибути</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+const h1 = document.getElementsByTagName('h1')[0];
+const attr = document.createAttribute('data-id');
+attr.value = 'id12345';
+h1.setAttributeNode(attr);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Підстановка</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+      element.textContent = 'Hello World'
+      element.innerHTML = '&lt;h1&gt;Hello World!&lt;/h1&gt;'
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Фрагмент</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+const parent  = document.getElementById('ul');
+const fragment = document.createDocumentFragment();
+const browsers = ['Firefox', 'Chrome', 'Opera', 'Safari'];
+
+for (let browser of browsers) {
+  const li = document.createElement('li');
+  li.textContent = browser;
+  fragment.appendChild(li);
+};
+
+parent.appendChild(fragment);
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>jQuery Query</h2>
+
+  <section>
+    <h3>Пошук</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+jQuery('#main a')
+$('#main a')
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Кількість результатів</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$('#main a').length
+    </code></pre>
+
+    <p>Може містити 0 елементів</p>
+  </section>
+
+  <section>
+    <h3>Отримання доступу до елемента</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$('#main a')[0]
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Обмеження першим елементом</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$('#main a').first()
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Ітерація</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$('#main a').each(function(index) {
+  // this - елемент
+})
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Пошук в всередині елемента</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+const $root = $('#main');
+$root.find('a')
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Пошук в батьківських елементах</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$('#main').parent();
+    </code></pre>
+    <pre><code class="hljs" data-trim contenteditable>
+$('#main').parents('body');
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Перевірка</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$('input').is(':visible')
+$('li').not(':even')
+$('li').has('ul')
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Розширені селектори</h3>
+
+    <a href="https://www.w3schools.com/jquery/jquery_ref_selectors.asp">Список</a>
+  </section>
+</section>
+
+<section>
+  <h2>jQuery Events</h2>
+
+  <section>
+    <h3>Готовність</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$(document).ready(fucntion() {
+  // Запуск скриптів
+})
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Популярні події</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$(element)
+  .click(function() { /*..*/ })
+  .change(function() { /*..*/ })
+  .hover(function() { /*..*/ }, function(/*..*/) {})
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>this і параметри</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$(element).click(function(e) {
+  // e - подія
+  // this - ціль
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Обробник</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$(document).on('click.myHandler', '#main a', function() {
+  // Handle
+  // ...
+
+  // Disable
+  $(document).off('click.myHandler')
+})
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>jQuery Manipulation</h2>
+
+  <section>
+    <h3>Створення</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+const element = $('&lt;a&gt;link&lt;/a&gt;');
+const clone = $('#root').clone();
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Вставка</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$('#root').prepend(element)
+$('#root').append(element)
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Відносна вставка</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$element.before(another)
+$element.after(another)
+
+$element.replaceWith(another)
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Підстановка</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$('a').text(); // 'Not Hello'
+$('a').text('Hello');
+$('ul').html('&lt;li&gt;World&lt;/li&gt;');
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Атрибути</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$input.val() // 8
+$input.val(9)
+
+$input.attr('data-my-attr', 17)
+$input.attr('data-my-attr') // 17
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Стилі</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$button.css({
+  height: '100px',
+  backgroundColor: 'red'
+})
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Дані</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$element.data('hello', {a: 'b'})
+$element.data('hello') // {a: 'b'}
+    </code></pre>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$element.attr('data-hello', 'world')
+$element.data('hello') // 'world'
+
+$element.data('hello', 'another')
+$element.attr('data-hello') 'world'
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Видимість</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$('button').show();
+$('button').hide();
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>jQuery Animation</h2>
+
+  <section>
+    <h3>Видимість</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$('button').show(1000);
+$('button').hide(500);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Зворотний виклик завершення</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$('button').show(1000, function() {
+  $('button').hide(500);
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Animate</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+$('#clickme').click(function() {
+  $(this).animate({
+    opacity: 0.25,
+    left: '+=50',
+    height: 'toggle'
+  }, 5000, 'swing', function() {
+    // Animation complete.
+  });
+});
+    </code></pre>
+
+    <iframe src="examples/animate.html"></iframe>
+  </section>
+
+  <section>
+    <h3>Animate</h3>
+
+    <ul>
+      <li><b>fade</b> - Проявлення (fadeIn/fadeOut/fadeToggle)</li>
+      <li><b>slide</b> - Випадання (slideDown/slideUp/slideToggle)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h4>jQueryUI</h3>
+
+    <a href="https://jqueryui.com/">Link</a>
+  </section>
+</section>
+
+<section>
+  <h2>Питання?</h2>
+</section>

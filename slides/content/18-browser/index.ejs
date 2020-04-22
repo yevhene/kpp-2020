@@ -1,0 +1,469 @@
+<section>
+  <h1>Браузерні технології</h1>
+</section>
+
+<section>
+  <h2>HTML</h2>
+
+  <section>
+    <h3>HyperText Markup Language</h3>
+  </section>
+
+  <section>
+    <h3>Структура</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+  &lt;html&gt;
+    &lt;head&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+    &lt;/body&gt;
+  &lt;/html&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Теги block</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+  &lt;div&gt;Блочний зміст&lt;/div&gt;
+
+  &lt;h1&gt;Заголовок&lt;/h1&gt;
+  &lt;h6&gt;Маленький заголовок&lt;/h6&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;Список 1&lt;/li&gt;
+  &lt;/ul&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Теги block (в дії)</h3>
+
+    <iframe src="examples/html-block.html"></iframe>
+  </section>
+
+  <section>
+    <h3>Аттрибути</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+  &lt;div id="main"&gt;
+    &lt;div class="content"&gt;...&lt;/div&gt;
+  &lt;/div&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Теги inline</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+  ...текст...&lt;span&gt;Блочний зміст&lt;/span&gt;...текст...
+
+  &lt;b&gt;Виділений текст (але не обов'язково жирний)&lt;/b&gt;
+  &lt;i&gt;По іншому виділений текст (але не обов'язково курсив)&lt;/i&gt;
+  &lt;a href="http://example.com"&gt;Посилання&lt;/a&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Теги inline (в дії)</h3>
+
+    <iframe src="examples/html-inline.html"></iframe>
+  </section>
+
+  <section>
+    <h3>Теги inline-block</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+  &lt;img src="http://example.com/image.png" alt="Картинка" /&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Теги inline-block (в дії)</h3>
+
+    <iframe src="examples/html-inline-block.html"></iframe>
+  </section>
+
+  <section>
+    <h3>Форми</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+  &lt;form&gt;
+    &lt;input type="text" /&gt;
+    &lt;input type="checkbox" /&gt;
+    &lt;input type="radio" /&gt;
+    &lt;input type="time" /&gt;
+    &lt;input type="submit" /&gt;
+
+    &lt;select&gt;
+      &lt;option&gt;Вибір 1&lt;/option&gt;
+      &lt;option&gt;Вибір 2&lt;/option&gt;
+    &lt;/select&gt;
+
+    &lt;button&gt;Hello&lt;/button&gt;
+  &lt;/form&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Форми (в дії)</h3>
+
+    <iframe src="examples/html-forms.html"></iframe>
+  </section>
+</section>
+
+<section>
+  <h2>DOM</h2>
+
+  <section>
+    <h3>Document Object Model</h3>
+  </section>
+
+  <section>
+    <h3>HTML</h3>
+
+    <p>HyperText Markup Language</p>
+
+    <pre><code class="hljs" data-trim contenteditable>
+&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;О лосях&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  Правда о лосях
+&lt;/body&gt;
+&lt;/html&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>DOM</h3>
+
+    <img src="images/dom.png" />
+  </section>
+
+  <section>
+    <h3>HTML (без переносів)</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;&lt;head&gt;&lt;title&gt;О лосях&lt;/title&gt;&lt;/head&gt;&lt;body&gt;Правда о лосях&lt;/body&gt;&lt;/html&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>DOM (без переносів)</h3>
+
+    <img src="images/dom-no-spaces.png" />
+  </section>
+
+  <section>
+    <h3>Автовиправлення</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+&lt;p&gt;Привет
+&lt;li&gt;Мама
+&lt;li&gt;и
+&lt;li&gt;Папа
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>DOM (автовиправлення)</h3>
+
+    <img src="images/dom-autocorrection.png" />
+  </section>
+
+  <section>
+    <h3>Автододавання</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+&lt;table id="table"&gt;
+  &lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>DOM (автододавання)</h3>
+
+    <img src="images/dom-autowrapping.png" />
+  </section>
+
+  <section>
+    <h3>Коментарі</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+&lt;!DOCTYPE HTML&gt;
+&lt;html&gt;
+
+&lt;body&gt;
+  Правда о лосях
+  &lt;ol&gt;
+    &lt;li&gt;Лось — животное хитрое&lt;/li&gt;
+    &lt;!-- комментарий --&gt;
+    &lt;li&gt;...и коварное!&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>DOM (коментарі)</h3>
+
+    <img src="images/dom-comments.png" />
+  </section>
+</section>
+
+<section>
+  <h2>CSS</h2>
+
+  <section>
+    <h3>Cascading Style Sheets</h3>
+  </section>
+
+  <section>
+    <h3>Правила (Декларації)</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+  &lt;style&gt;
+    span {
+      background-color: red;
+    }
+    h1 {
+      color: #00ff00;
+    }
+  &lt;/style&gt;
+
+  &lt;h1&gt;Hello &lt;span&gt;CSS&lt;/span&gt;!&lt;/h1&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Правила (в дії)</h3>
+
+    <iframe src="examples/css-rules.html"></iframe>
+  </section>
+
+  <section>
+    <h3>Селектори</h3>
+
+    <ul>
+      <li><b>table</b> - всі елементи з іменем </i>table</i></li>
+      <li><b>.text</b> - елементи з <i>class="text"</i></li>
+      <li><b>#title</b> - елемент з <i>id="title"</i></li>
+      <li><b>[name="student"]</b> - всі елементи з атрибутом <i>name="student"</i></li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Групування</h3>
+
+    <ul>
+      <li><b>.description .text</b> - всі елементи з <i>class="text"</i> що містяться в елементі з <i>class="description"</i></li>
+      <li><b>ul#list .item</b> - всі елементи з <i>class="item"</i> що містяться в елементі <i>ul</i> з <i>id="list"</i></li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Сепцифічність (Specifity)</h3>
+
+    <p>Селектори сортуються в порядку <i>спеціфічності</i>. Найбільш специфічний буде застосовано останнім.</p>
+
+    <ul>
+      <li>Порівнюється кількість <i>#id</i> у селекторі, чим вона більша, там селектор спеціфічніший. Якщо вона рівна, переходять до наступного правила;</li>
+      <li>Порівнюється кількість <i>.class</i> у селекторі;</li>
+      <li>Порівнюється кількість <i>element</i> у селекторі;</li>
+      <li>Далі в порядку об'яви.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Селектори (приклад)</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+  &lt;style&gt;
+    #title { color: green; }
+    .text {
+      color: blue;
+      background-color: red;
+    }
+    .description .text { color: white; }
+  &lt;/style&gt;
+  &lt;h1 id="title"&gt;Hi! My name is (what?)&lt;/h1&gt;
+  &lt;h2 class="text"&gt;Hi my name is (who?)&lt;/h2&gt;
+  &lt;div class="description"&gt;
+    &lt;div class="text"&gt;My name is Yevhen Shemet&lt;/div&gt;
+  &lt;/div&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Селектори (в дії)</h3>
+
+    <iframe src="examples/css-selectors.html"></iframe>
+  </section>
+
+  <section>
+    <h3>link</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+  &lt;link href="css/style.css" rel="stylesheet" /&gt;
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Bootstrap</h2>
+
+  <section>
+    <a href="https://getbootstrap.com/docs/4.0">getbootstrap.com</a>
+  </section>
+
+  <section>
+    <h3>Інтеграція</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+      &lt;link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous"
+      &gt;
+    </code></pre>
+
+    <pre><code class="hljs" data-trim contenteditable>
+      &lt;script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"&gt;&lt;/script&gt;
+      &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"&gt;&lt;/script&gt;
+      &lt;script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"&gt;&lt;/script&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Сітка</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-sm"&gt;
+      One of three columns
+    &lt;/div&gt;
+    &lt;div class="col-sm"&gt;
+      One of three columns
+    &lt;/div&gt;
+    &lt;div class="col-sm"&gt;
+      One of three columns
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Сітка (в дії)</h3>
+
+    <iframe class="wide" src="examples/bootstrap-grid.html"></iframe>
+  </section>
+
+  <section>
+    <h3>Складна Сітка (в дії)</h3>
+
+    <iframe class="wide" src="examples/bootstrap-grid-advanced.html"></iframe>
+  </section>
+
+  <section>
+    <h3>Стилізація</h3>
+
+    <iframe src="examples/bootstrap-table.html"></iframe>
+  </section>
+
+  <section>
+    <h3>Компоненти</h3>
+      <ul><li><a href="/docs/4.0/components/alerts/">
+        Alerts
+      </a></li><li>
+      <a href="/docs/4.0/components/badge/">
+        Badge
+      </a></li><li>
+      <a href="/docs/4.0/components/breadcrumb/">
+        Breadcrumb
+      </a></li><li>
+      <a href="/docs/4.0/components/buttons/">
+        Buttons
+      </a></li><li>
+      <a href="/docs/4.0/components/button-group/">
+        Button group
+      </a></li><li>
+      <a href="/docs/4.0/components/card/">
+        Card
+      </a></li><li>
+      <a href="/docs/4.0/components/carousel/">
+        Carousel
+      </a></li></ul><ul><li>
+      <a href="/docs/4.0/components/collapse/">
+        Collapse
+      </a></li><li>
+      <a href="/docs/4.0/components/dropdowns/">
+        Dropdowns
+      </a></li><li>
+      <a href="/docs/4.0/components/forms/">
+        Forms
+      </a></li><li>
+      <a href="/docs/4.0/components/input-group/">
+        Input group
+      </a></li><li>
+      <a href="/docs/4.0/components/jumbotron/">
+        Jumbotron
+      </a></li><li>
+      <a href="/docs/4.0/components/list-group/">
+        List group
+      </a></li><li>
+      <a href="/docs/4.0/components/modal/">
+        Modal
+      </a></li></ul><ul><li>
+      <a href="/docs/4.0/components/navs/">
+        Navs
+      </a></li><li>
+      <a href="/docs/4.0/components/navbar/">
+        Navbar
+      </a></li><li>
+      <a href="/docs/4.0/components/pagination/">
+        Pagination
+      </a></li><li>
+      <a href="/docs/4.0/components/popovers/">
+        Popovers
+      </a></li><li>
+      <a href="/docs/4.0/components/progress/">
+        Progress
+      </a></li><li>
+      <a href="/docs/4.0/components/scrollspy/">
+        Scrollspy
+      </a></li><li>
+      <a href="/docs/4.0/components/tooltips/">
+        Tooltips
+      </a></li></ul>
+  </section>
+
+  <section>
+    <h3>Налаштування</h3>
+
+    <iframe src="examples/bootstrap-colors.html"></iframe>
+  </section>
+</section>
+
+<section>
+  <h2>Посилання</h2>
+
+  <ul>
+    <li><a href="https://learn.javascript.ru/dom-nodes">javascript.ru</a></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Питання?</h2>
+</section>

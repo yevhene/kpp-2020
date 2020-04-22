@@ -1,0 +1,377 @@
+<section>
+  <h1>Браузерне оточення</h1>
+</section>
+
+<section>
+  <h2>Інтеграція з JavaScript</h2>
+
+  <section>
+    <h3>Host елемент</h3>
+
+    <ul>
+      <li><b>window</b> - host об'єкт, містить глобальні змінні і інформацію про вікно;</li>
+      <li><b>window.navigator</b> - доступ до властивостей браузера;</li>
+      <li><b>window.document</b> - доступ до DOM.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Пошук</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+// Один елемент з #student
+document.getElementById('student');
+
+// Набір елементів що відповідають .menu
+document.getElementsByClassName('.menu');
+
+// Один елемент
+document.querySelector('div.user-panel.main input[name=login]');
+
+// Всі елементи
+document.querySelectorAll('div.user-panel.main input[name=login]');
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>DOM</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+document.body.style.backgroundColor = 'red';
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Події (HTML)</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+  &lt;script&gt;
+    function process(event) {
+      console.log(event);
+    }
+    function changed(element) {
+      console.log(element.value);
+      return false;
+    }
+  &lt;/script&gt;
+  &lt;form onsubmit="process(event)"&gt;
+    &lt;input type="text" onkeydown="return changed(this)" /&gt;
+    &lt;input type="submit" /&gt;
+  &lt;/form&gt;
+  &lt;button onclick="alert('Hello')"&gt;Hello&lt;/button&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Події (в дії)</h3>
+
+    <iframe src="examples/html-events.html"></iframe>
+  </section>
+
+  <section>
+    <h3>Події (JavaScript)</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+const button = document.getElementById('btn');
+button.addEventListener('click', function() {
+  alert('clicked');
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>script</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+  &lt;script async defer src="js/script.js"&gt;&lt;/script&gt;
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>HTML5 APIs</h2>
+</section>
+
+<section>
+  <h2>fetch</h2>
+
+  <pre><code class="hljs" data-trim contenteditable>
+fetch('http://someapi.com', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'appliaction/json'
+  },
+  body: JSON.stringify({ name: 'Yevhen' })
+})
+.then(function(response) {
+  console.log(response.status);
+  return response.json()
+})
+.then(function(data) {
+  console.log(data);
+});
+  </code></pre>
+</section>
+
+<section>
+  <h2>FormData</h2>
+
+  <pre><code class="hljs" data-trim contenteditable>
+&lt;form&gt;
+  &lt;input name="name" type="text" /&gt;
+&lt;/form&gt;
+  </code></pre>
+
+  <pre><code class="hljs" data-trim contenteditable>
+const formdata = new FormData(document.querySelector('form'));
+formdata.get('name');
+  </code></pre>
+</section>
+
+<section>
+  <h2>History</h2>
+
+  <pre><code class="hljs" data-trim contenteditable>
+window.history.back();
+window.history.forward();
+window.history.pushState({}, 'MyPage', '/mypage');
+  </code></pre>
+</section>
+
+<section>
+  <h2>Drag and drop</h2>
+
+  <pre><code class="hljs" data-trim contenteditable>
+element.addEventListener('dragenter', function() { ... });
+element.addEventListener('dragleave', function() { ... });
+  </code></pre>
+</section>
+
+<section>
+  <h2>Geolocation</h2>
+
+  <pre><code class="hljs" data-trim contenteditable>
+navigator.geolocation.getCurrentPosition(function(p) {
+  newMarker(p.coords.latitude, p.coords.longitude);
+});
+
+const watch = navigator.geolocation.watchPosition(function(p) {
+  moveMarker(p.coords.latitude, p.coords.longitude);
+});
+
+navigator.geolocation.clearWatch(watch);
+  </code></pre>
+</section>
+
+<section>
+  <h2>canvas</h2>
+
+  <section>
+    <pre><code class="hljs" data-trim contenteditable>
+&lt;canvas id="mycanvas" width="100" height="100"&gt;&lt;/canvas&gt;
+    </code></pre>
+
+    <pre><code class="hljs" data-trim contenteditable>
+var canvas = document.getElementById('mycanvas');
+
+// use getContext to use the canvas for drawing
+var context = canvas.getContext('2d');
+
+// Draw shapes
+context.fillRect(25,25,100,100);
+context.clearRect(45,45,60,60);
+context.strokeRect(50,50,50,50);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>в дії</h3>
+
+    <iframe src="examples/html5-canvas.html"></iframe>
+  </section>
+
+  <section>
+    <h3>WebGL</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+var canvas = document.getElementById("mycanvas");
+initGL(canvas);
+initShaders();
+initBuffers();
+
+gl.clearColor(0.0, 0.0, 0.0, 1.0);
+gl.enable(gl.DEPTH_TEST);
+
+drawScene();
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>WebGL (результат)</h3>
+
+    <img src="images/html5-webgl.gif" />
+
+    <div>
+      <a href="https://human.biodigital.com">human.biodigital.com</a>
+    </div>
+  </section>
+</section>
+
+<section>
+  <h2>Збереження даних</h2>
+
+  <section>
+    <h3>Local storage</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+localStorage.setItem('user_id', 1);
+localStorage.getItem('user_id'); // '1'
+localStorage.removeItem('user_id')
+    </code></pre>
+
+    <pre><code class="hljs" data-trim contenteditable>
+localStorage.setItem('user', JSON.stringify({ name: 'Petro' }));
+const user = JSON.parse(localStorage.getItem('user_id'));
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Web SQL</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+const db = openDatabase('mydb', '1.0', 'Test DB', 2 * 1024 * 1024);
+db.transaction(function (tx) {
+  tx.executeSql('CREATE TABLE IF NOT EXISTS LOGS (id unique, log)');
+  tx.executeSql('INSERT INTO LOGS (id, log) VALUES (1, "foobar")');
+  tx.executeSql('INSERT INTO LOGS (id, log) VALUES (2, "logmsg")');
+});
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Media</h2>
+
+  <section>
+    <h3>Audio</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+const context = new AudioContext();
+
+function playSound(buffer) {
+  // creates a sound source
+  var source = context.createBufferSource();
+  // tell the source which sound to play
+  source.buffer = buffer;
+  // connect the source to the context's destination (the speakers)
+  source.connect(context.destination);
+  // play the source now
+  source.start(0);
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Video</h3>
+  </section>
+</section>
+
+<section>
+  <h2>Device</h2>
+
+  <section>
+    <ul>
+      <li>Orientation</li>
+      <li>Battery status</li>
+      <li>Touch</li>
+      <li>Vibration</li>
+    </ul>
+  </section>
+</section>
+
+<section>
+  <h2>Синтаксис</h2>
+
+  <section>
+    <h3>SVG</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;svg width="100" height="100"&gt;
+  &lt;circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" /&gt;
+&lt;/svg&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>SVG (в дії)</h3>
+
+    <iframe src="examples/html5-svg.html"></iframe>
+  </section>
+
+  <section>
+    <h3>MathML</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;math xmlns="http://www.w3.org/1998/Math/MathML"&gt;
+&lt;mrow&gt;
+  &lt;mi&gt;x&lt;/mi&gt;
+  &lt;mo&gt;=&lt;/mo&gt;
+  &lt;mfrac&gt;
+    &lt;mrow&gt;
+      &lt;mrow&gt;
+        &lt;mo&gt;-&lt;/mo&gt;
+        &lt;mi&gt;b&lt;/mi&gt;
+        &lt;mo&gt;±&lt;/mo&gt;
+      &lt;/mrow&gt;
+      &lt;msqrt&gt;
+        &lt;mrow&gt;
+          &lt;msup&gt;
+            &lt;mi&gt;b&lt;/mi&gt;
+            &lt;mn&gt;2&lt;/mn&gt;
+          &lt;/msup&gt;
+          &lt;mo&gt;-&lt;/mo&gt;
+          &lt;mrow&gt;
+            &lt;mn&gt;4&lt;/mn&gt;
+            &lt;mi&gt;a&lt;/mi&gt;
+            &lt;mi&gt;c&lt;/mi&gt;
+          &lt;/mrow&gt;
+        &lt;/mrow&gt;
+      &lt;/msqrt&gt;
+    &lt;/mrow&gt;
+    &lt;mrow&gt;
+      &lt;mn&gt;2&lt;/mn&gt;
+      &lt;mi&gt;a&lt;/mi&gt;
+    &lt;/mrow&gt;
+  &lt;/mfrac&gt;
+ &lt;/mrow&gt;
+&lt;/math&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>MathML (результат)</h3>
+
+    <img src="images/html5-mathml.svg" />
+  </section>
+</section>
+
+<section>
+  <h2>Посилання</h2>
+
+  <ul>
+    <li><a href="https://platform.html5.org/">platform.html5.org</a></li>
+    <li><a href="https://html5demos.com/">HTML5 Demos</a></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Питання?</h2>
+</section>
