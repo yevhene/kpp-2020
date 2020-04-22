@@ -47,8 +47,8 @@ function resolveAfter2Seconds(x) {
 
     <pre><code class="hljs javascript" data-trim contenteditable>
 async function add2(x) {
-  var a = await resolveAfter2Seconds(20);
-  var b = await resolveAfter2Seconds(30);
+  const a = await resolveAfter2Seconds(20);
+  const b = await resolveAfter2Seconds(30);
   return x + a + b;
 }
 
@@ -63,8 +63,8 @@ add2(10).then(v =&gt; {
 
     <pre><code class="hljs javascript" data-trim contenteditable>
 async function add1(x) {
-  var a = resolveAfter2Seconds(20);
-  var b = resolveAfter2Seconds(30);
+  const a = resolveAfter2Seconds(20);
+  const b = resolveAfter2Seconds(30);
   return x + await Promise.all([a, b]);
 }
 
