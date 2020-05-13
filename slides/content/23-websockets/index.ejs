@@ -1,0 +1,198 @@
+<section>
+  <h1>WebSockets</h1>
+</section>
+
+<section>
+  <h2>Історія</h2>
+
+  <section>
+    <h3>Перші кроки</h3>
+
+    <ul>
+      <li>HTML</li>
+      <li>DHTML</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Фрейми та зовнішні об'єкти</h3>
+
+    <ul>
+      <li>Cross Frame Communication</li>
+      <li>HTTP Polling</li>
+      <li>LiveConnect (Java Applets)</li>
+      <li>Forever Frame (Hidden Frame)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>AJAX</h3>
+
+    <ul>
+      <li>AJAX</li>
+      <li>HTTP Long-Polling</li>
+      <li>XHR Streaming</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>WebSockets</h3>
+  </section>
+</section>
+
+<section>
+  <h2>З'єднання</h2>
+
+  <section>
+    <pre><code class="hljs" data-trim contenteditable>
+GET /ws HTTP/1.1
+Host: pmx
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Version: 6
+Sec-WebSocket-Origin: http://pmx
+Sec-WebSocket-Extensions: deflate-stream
+Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==
+    </code></pre>
+
+    <p>Клієнт надсилає ключ Sec-WebSocket-Key, що є випадковим значенням, закодованим з використанням base64</p>
+  </section>
+
+  <section>
+    <pre><code class="hljs" data-trim contenteditable>
+HTTP/1.1 101 Switching Protocols
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=
+    </code></pre>
+
+    <p>Щоб сформувати відповідь, до закодованого ключа додають рядок GUID 258EAFA5-E914-47DA-95CA-C5AB0DC85B11, а потім (не розкодовуючи ключ) хешують через SHA1 та base64. І на завершення, результуючу відповідь вкладають в заголовок Sec-WebSocket-Accept.</p>
+  </section>
+</section>
+
+<section>
+  <h2>Клієнт</h2>
+
+  <section>
+    <h3>Приклад</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+const webSocket = new WebSocket('ws://localhost/echo');
+
+webSocket.onopen = function(event) {
+  alert('onopen');
+  webSocket.send("Hello Web Socket!");
+};
+
+webSocket.onmessage = function(event) {
+  alert('onmessage, ' + event.data);
+  webSocket.close();
+};
+
+webSocket.onclose = function(event) {
+  alert('onclose');
+};
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Події</h3>
+
+    <ul>
+      <li>onopen - відкриття;</li>
+      <li>onmessage - повідомлення;</li>
+      <li>onclose - закриття;</li>
+      <li>onerror - помилка.</li>
+    </ul>
+  </section>
+</section>
+
+<section>
+  <h2>Сервер</h2>
+
+  <section>
+    <pre><code class="hljs" data-trim contenteditable>
+npm install --save ws
+    </code></pre>
+
+    <p>Або</p>
+
+    <pre><code class="hljs" data-trim contenteditable>
+npm install --save websocket
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Простий приклад</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+const WebSocket = require('ws');
+
+const wss = new WebSocket.Server({ port: 8080 });
+
+wss.on('connection', function connection(ws) {
+  ws.on('message', function incoming(message) {
+    console.log('received: %s', message);
+  });
+
+  ws.send('something');
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Широкомовлення</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+const WebSocket = require('ws');
+
+const wss = new WebSocket.Server({ port: 8080 });
+
+wss.on('connection', function connection(ws) {
+  ws.on('message', function incoming(data) {
+    wss.clients.forEach(function each(client) {
+      if (client !== ws &amp;&amp; client.readyState === WebSocket.OPEN) {
+        client.send(data);
+      }
+    });
+  });
+});
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Один порт</h3>
+
+    <pre><code class="hljs" data-trim contenteditable>
+const WebSocket = require('ws');
+const server = require('http').createServer();
+
+// Налаштування аплікації express
+const express = require('express');
+const app = express();
+// ...
+// Монтування аплікації до сервера
+server.on('request', app);
+
+// Приєднання веб-сокет сервера
+const wss = new WebSocket.Server({ server: server });
+
+wss.on('connection', function connection(ws) {
+  // ...
+});
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Посилання</h2>
+
+  <ul>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Websockets_API">MDN WebSockets</a></li>
+    <li><a href="https://blog.pusher.com/what-came-before-websockets/">Історія</a></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Питання?</h2>
+</section>
