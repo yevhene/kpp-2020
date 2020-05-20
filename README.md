@@ -193,3 +193,13 @@
   - Контроль якості коду (eslint);
   - Моніторинг в реальному часі.
 - [Слайди](/slides/24-testing)
+
+#### Лекція 25: Apache Cordova
+- Теми:
+  - Apache Cordova
+- [Слайди](/slides/25-cordova)
+
+#### Лекція 26: Electron
+- Теми:
+  - Electron
+- [Слайди](/slides/26-electron)
