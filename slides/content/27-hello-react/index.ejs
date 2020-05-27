@@ -1,0 +1,263 @@
+<section>
+  <h1>Hello React</h1>
+</section>
+
+<section>
+  <h2>Чому React?</h2>
+
+  <section>
+    <h2>Історія</h2>
+
+    <ul>
+      <li>React був створений <b>Jordan Walke</b>, розробником в <b>Facebook</b></li>
+      <li>Він був використаний перший раз на стрічці новин Facebook в <b>2011</b> році і пізніше на Instagram.com в 2012</li>
+      <li>Його код був відкритий під JSConf US в <b>Травні 2013-го</b></li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Переваги</h3>
+
+    <ul>
+      <li>Швидкість (Virtual DOM)</li>
+      <li>Інфраструктура</li>
+      <li>Мінімалістичність</li>
+      <li>Контроль</li>
+      <li>Ізоморфність (Server-Side rendering)</li>
+      <li>Універсальність</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Особливості</h3>
+
+    <ul>
+      <li>Це не фреймворк, це бібліотека для відображення</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Недоліки</h3>
+
+    <ul>
+      <li>Високий поріг входу</li>
+    </ul>
+  </section>
+</section>
+
+<section>
+  <h2>Багатоплатформність</h2>
+
+  <section>
+    <h3>Браузер</h3>
+
+    <a target="_blank" href="https://github.com/facebook/react/tree/master/packages/react-dom">react-dom</a>
+  </section>
+
+  <section>
+    <h3>Мобільні</h3>
+
+    <a target="_blank" href="https://github.com/facebook/react-native">react-native</a>
+    <br />
+
+    <img src="images/react-native.gif" />
+  </section>
+
+  <section>
+    <h3>Термінал</h3>
+
+    <a target="_blank" href="https://github.com/Yomguithereal/react-blessed">react-blessed</a>
+    <br />
+
+    <img src="images/react-blessed.gif" />
+  </section>
+
+  <section>
+    <h3>Віртуальна реальність</h3>
+
+    <a target="_blank" href="https://github.com/ngokevin/aframe-react">aframe-react</a>
+    <br />
+
+    <img src="images/react-aframe.gif" />
+  </section>
+
+  <section>
+    <h3>Залізо</h3>
+
+    <a target="_blank" href="https://github.com/iamdustan/react-hardware">react-hardware</a>
+    <br />
+
+    <img src="images/react-hardware.gif" />
+  </section>
+</section>
+
+<section>
+  <h2>Hello World</h2>
+
+  <section>
+    <h3>Імпорт</h3>
+
+    <pre><code class="javascript" data-trim contenteditable>
+&lt;script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"&gt;&lt;/script&gt;
+&lt;script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"&gt;&lt;/script&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Точка монтування</h3>
+
+    <pre><code class="javascript" data-trim contenteditable>
+&lt;h1&gt;Hello World!&lt;/h1&gt;
+
+&lt;div id="root"&gt;&lt;/div&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Скрипт</h3>
+
+    <pre><code class="javascript" data-trim contenteditable>
+function Button() {
+  return React.createElement('button', null, 'Hello');
+}
+
+function App() {
+  return React.createElement('div', null,
+    React.createElement('h2', null, 'Here be button'),
+    React.createElement(Button)
+  );
+}
+
+ReactDOM.render(
+  React.createElement(App),
+  document.getElementById('root')
+);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Результат</h3>
+
+    <iframe src="examples/react.html"></iframe>
+  </section>
+</section>
+
+<section>
+  <h2>create-react-app</h2>
+
+  <section>
+    <h2>Встановлення генератора</h2>
+
+    <pre><code class="javascript" data-trim contenteditable>
+$ npm install -g create-react-app
+    </code></pre>
+  </section>
+
+  <section>
+    <h2>Генерація нової аплікації</h2>
+
+    <pre><code class="javascript" data-trim contenteditable>
+$ create-react-app myapp
+    </code></pre>
+  </section>
+
+  <section>
+    <h2>Запуск аплікації</h2>
+
+    <pre><code class="javascript" data-trim contenteditable>
+cd myapp
+yarn start
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>DEMO: React Hello World</h3>
+
+    <img src="images/react-hello-world.png" />
+
+    <div>
+      <a href="https://github.com/yevhene/kpp-2018/tree/master/demo/react-hello-world">react-hello-world</a>
+    </div>
+  </section>
+
+  <section>
+    <h3>Нова аплікація</h3>
+
+    <pre><code class="javascript" data-trim contenteditable>
+.
+├── .gitignore
+├── package.json
+├── public
+│   ├── favicon.ico
+│   ├── index.html
+│   └── manifest.json
+├── README.md
+├── src
+│   ├── App.css
+│   ├── App.js
+│   ├── App.test.js
+│   ├── index.css
+│   ├── index.js
+│   ├── logo.svg
+│   └── registerServiceWorker.js
+└── yarn.lock
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>package.json</h3>
+
+    <pre><code class="javascript" data-trim contenteditable>
+{
+  "name": "myapp",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-scripts": "1.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h1><strike>889</strike> <strike>943</strike> <strike>1023</strike> <strike>1027 пакетів</strike></h1>
+  </section>
+
+  <section>
+    <h3>Скрипти</h3>
+
+    <ul>
+      <li><b>yarn start</b> - запуск аплікації в режимі розробки;</li>
+      <li><b>yarn build</b> - побудова аплікації для випуску;</li>
+      <li><b>yarn test</b> - запуск тестів аплікації;</li>
+      <li><b>yarn eject</b> - вивантаження конфігурації та видалення react-scripts.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Точка входу</h3>
+
+    <pre><code class="javascript" data-trim contenteditable>
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
+
+ReactDOM.render(&lt;App /&gt;, document.getElementById('root'));
+registerServiceWorker();
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Питання?</h2>
+</section>

@@ -203,3 +203,15 @@
 - Теми:
   - Electron
 - [Слайди](/slides/26-electron)
+
+#### Лекція 27: Hello React
+- Теми:
+  - React
+  - create-react-app
+- [Слайди](/slides/27-hello-react)
+
+#### Лекція 28: React
+- Теми:
+  - React
+  - JSX
+- [Слайди](/slides/28-react)

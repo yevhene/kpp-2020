@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <script src="../lib/react.js"></script>
+    <script src="../lib/react-dom.js"></script>
+  </head>
+  <body style="background-color: white">
+    <h1>Hello World!</h1>
+
+    <div id="root"></div>
+
+    <script>
+function Button() {
+  return React.createElement('button', null, 'Hello');
+}
+
+function App() {
+  return React.createElement('div', null,
+    React.createElement('h2', null, 'Here be button'),
+    React.createElement(Button)
+  );
+}
+
+ReactDOM.render(React.createElement(App), document.getElementById('root'));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,428 @@
+<section>
+  <h1>React</h1>
+</section>
+
+<section>
+  <h2>Компоненти</h2>
+
+  <section>
+    <h3>Імпорт</h3>
+
+    <pre><code class="javascript" data-trim contenteditable>
+import React, { Component } from 'react';
+import logo from './logo.svg';
+import './App.css';
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Клас компоненту</h3>
+
+    <pre><code class="javascript" data-trim contenteditable>
+class App extends Component {
+  render() {
+    return (
+      ...
+    );
+  }
+}
+
+export default App;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>JSX</h3>
+
+    <pre><code class="javascript" data-trim contenteditable>
+&lt;div className="App"&gt;
+  &lt;header className="App-header"&gt;
+    &lt;img src={logo} className="App-logo" alt="logo" /&gt;
+    &lt;h1 className="App-title"&gt;Welcome to React&lt;/h1&gt;
+  &lt;/header&gt;
+  &lt;p className="App-intro"&gt;
+    To get started, edit &lt;code&gt;src/App.js&lt;/code&gt; and save to reload.
+  &lt;/p&gt;
+&lt;/div&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>No JSX</h3>
+
+    <pre><code class="javascript" data-trim contenteditable>
+React.createElement("div", { className: "App" },
+  React.createElement("header", { className: "App-header" },
+    React.createElement("img", { src: logo, className: "App-logo", alt: "logo" }),
+    React.createElement("h1", { className: "App-title" }, "Welcome to React")
+  ),
+  React.createElement("p", { className: "App-intro" }, "To get started, edit ",
+    React.createElement("code", null, "src/App.js"),
+    " and save to reload."
+  )
+);
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>JSX (інтерполяція)</h3>
+
+    <pre><code class="javascript" data-trim contenteditable>
+&lt;div&gt;
+  &lt;h1&gt;Artists&lt;/h1&gt;
+
+  {this.artists.length === 0 ? (
+    &lt;h2&gt;Not found&lt;/h2&gt;
+  ) : (
+    &lt;ul&gt;
+      {this.artists.forEach((artist) =&gt; (
+        &lt;li&gt;{artist.name}&lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  )}
+&lt;/div&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>JSX (інтерполяція)</h3>
+
+    <pre><code class="javascript" data-trim contenteditable>
+renderArtists() {
+  if (this.artists.length === 0) {
+    return (&lt;h2&gt;Not Found&lt;/h2&gt;);
+  } else {
+    return this.artists.forEach((a) =&gt; &lt;li&gt;{a.name}&lt;/li&gt;);
+  }
+}
+
+render() {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Artists&lt;/h1&gt;
+      {renderArtists()}
+    &lt;/div&gt;
+  );
+}
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Властивості (props)</h2>
+
+  <section>
+    <pre><code class="javascript" data-trim contenteditable>
+class Phone extends Component {
+  render() {
+    return &lt;div className="phone"&gt;{this.props.number}&lt;/div&gt;;
+  }
+}
+    </code></pre>
+
+    <pre><code class="javascript" data-trim contenteditable>
+class Contact extends Component {
+  render() {
+    return (
+      &lt;img src={this.props.contact.image} /&gt;
+      &lt;Phone number={this.props.contact.phone} /&gt;
+    );
+  }
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Контроль властивостей</h3>
+
+    <pre><code class="javascript" data-trim contenteditable>
+npm install --save prop-types
+    </code></pre>
+
+    <pre><code class="javascript" data-trim contenteditable>
+Phone.propTypes = {
+  number: PropTypes.number.isRequired,
+  code: PropTypes.string
+};
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Властивості за замовчуванням</h3>
+
+    <pre><code class="javascript" data-trim contenteditable>
+Phone.defaultProps = {
+  code: '+380'
+};
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Компоненти без стану (stateless)</h3>
+
+    <pre><code class="javascript" data-trim contenteditable>
+class Phone extends Component {
+  render() {
+    return &lt;div className="phone"&gt;{props.number}&lt;/div&gt;;
+  }
+}
+    </code></pre>
+
+    <pre><code class="javascript" data-trim contenteditable>
+function Phone(props) {
+  return &lt;div className="phone"&gt;{props.number}&lt;/div&gt;;
+}
+    </code></pre>
+
+    <pre><code class="javascript" data-trim contenteditable>
+const Phone = ({ number }) =&gt;
+  &lt;div className="phone"&gt;{number}&lt;/div&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Компоненти вищого порядку</h3>
+
+    <pre><code class="javascript" data-trim contenteditable>
+class FieldList extends Component {
+  render() {
+    return (
+      &lt;div class="field-list"&gt;
+        {this.props.children}
+      &lt;/div&gt;
+    );
+  }
+}
+    </code></pre>
+
+    <pre><code class="javascript" data-trim contenteditable>
+&lt;FieldList&gt;
+  &lt;Phone number={this.contact.phone} /&gt;
+&lt;/FieldList&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Fragment</h3>
+
+    <pre><code class="javascript" data-trim contenteditable>
+const Cells = ({ user }) =&gt;
+  &lt;React.Fragment&gt;
+    &lt;td&gt;{user.name}&lt;/td&gt;
+    &lt;td&gt;{user.phone}&lt;/td&gt;
+  &lt;/React.Fragment&gt;
+    </code></pre>
+
+    <pre><code class="javascript" data-trim contenteditable>
+const Table = ({ users }) =&gt;
+  &lt;table&gt;
+    {users.forEach((user, index) =&gt;
+      &lt;tr&gt;
+        &lt;td&gt;{index}&lt;/td&gt;
+        &lt;Cells user={this.user}&gt;
+      &lt;/tr&gt;
+    }
+  &lt;/table&gt;
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Стан (state)</h2>
+
+  <section>
+    <h3>Компоненти зі станом (stateful)</h3>
+
+    <pre><code class="javascript" data-trim contenteditable>
+class Counter extends Component {
+  constructor() {
+    super();
+    this.state = { count: 0 };
+  }
+
+  increment = () =&gt; {
+    this.setState((prevState) =&gt; { count: prevState.count + 1 });
+  }
+
+  render() {
+    return (
+      &lt;button onClick={this.increment}&gt;{this.state.count}&lt;/button&gt;
+    );
+  }
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Зворотні виклики (callbacks)</h3>
+
+    <pre><code class="javascript" data-trim contenteditable>
+class MyCounter extends Counter {
+  render() {
+    return (&lt;CounterButton onClick={this.increment} count={this.state.count} /&gt;);
+  }
+}
+    </code></pre>
+
+    <pre><code class="javascript" data-trim contenteditable>
+const CounterButton = () =&gt;
+  &lt;Button onClick={this.props.increment}&gt;
+    {this.props.count}
+  &lt;Button&gt;
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Неконтрольовані компоненти</h3>
+
+    <pre><code class="javascript" data-trim contenteditable>
+class UserForm extends Component {
+  createUser = (e) =&gt; {
+    const user = { name: this.name.value };
+    fetch('/users', {
+      method: 'POST', body: JSON.stringify(user)
+    });
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  render() {
+    return &lt;form onSubmit={createUser}&gt;
+      &lt;input type="text" ref={(ref) =&gt; this.name = ref} /&gt;
+      &lt;input type="submit" /&gt;
+    &lt;/form&gt;
+  }
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Контрольовані компоненти</h3>
+
+    <pre><code class="javascript" data-trim contenteditable>
+class UserForm extends Component {
+  constructor() {
+    super();
+    this.state = { name: '' };
+  }
+
+  createUser = (e) =&gt; {
+    const user = this.state;
+    fetch('/users', {
+      method: 'POST', body: JSON.stringify(user)
+    });
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  //...
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Контрольовані компоненти</h3>
+
+    <pre><code class="javascript" data-trim contenteditable>
+class UserForm extends Component {
+  //...
+  updateName = (e) =&gt; {
+    this.setState(() =&gt; { name: e.target.value });
+  }
+
+  render() {
+    return &lt;form onSubmit={this.createUser}&gt;
+      &lt;input
+        type="text"
+        value={this.state.name}
+        onChange={this.updateName}
+      /&gt;
+      &lt;input type="submit" /&gt;
+    &lt;/form&gt;
+  }
+}
+    </code></pre>
+  </section>
+</section>
+
+<section>
+  <h2>Методи життєвого циклу</h2>
+
+  <section>
+    <pre><code class="javascript" data-trim contenteditable>
+class Counter extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { count: props.count };
+  }
+
+  componentDidMount() {
+    fetch('/count')
+      .then((response) =&gt; response.json())
+      .then((data) =&gt;
+        this.setState(() =&gt; { counter: data.count })
+      );
+  }
+
+  ...
+}
+    </code></pre>
+  </section>
+
+  <section>
+    <h3>Монтування</h3>
+
+    <ul>
+      <li><b>constructor(props)</b> - Конструктор;</li>
+      <li><b>static getDerivedStateFromProps(nextProps, prevState)</b> - Викликається під час отримання props щоб отримати новий state;</li>
+      <li><strike>componentWillMount()</strike> - Перед приєднанням компонента;</li>
+      <li><b>render()</b> - Прорахунок дерева компонентів;</li>
+      <li><b>componentDidMount()</b> - Після приєднання компонентаю</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Оновлення</h3>
+
+    <ul>
+      <li><strike>componentWillReceiveProps(nextProps)</strike> - Компонент має отримати властивості;</li>
+      <li><b>static getDerivedStateFromProps(nextProps, prevState)</b> - Викликається під час зміни props, щоб отримати новий state;</li>
+      <li><b>shouldComponentUpdate(nextProps, nextState)</b> - Чи має компонент оновлюватись?</li>
+      <li><strike>componentWillUpdate(nextProps, nextState)</strike> - Перед тим, як компонент оновиться;</li>
+      <li><b>render()</b> - Прорахунок дерева компонентів;</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Оновлення</h3>
+
+    <ul>
+      <li><b>render()</b> - Прорахунок дерева компонентів;</li>
+      <li><b>getSnapshotBeforeUpdate(prevProps, prevState)</b> - Дозволяє отримати значення з HTML перед відображенням;</li>
+      <li><b>componentDidUpdate(prevProps, prevState, snapshot)</b> - Після оновлення.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Відмонтування</h3>
+
+    <ul>
+      <li><b>componentWillUnmount()</b> - Перед відмонтування компонента.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h3>Обробка помилок</h3>
+
+    <ul>
+      <li><b>componentDidCatch(error, info)</b> - Якщо в дочірніх компонентах виникла помилка.</li>
+    </ul>
+  </section>
+
+  <section>
+    <img src="images/react-lifecycle.jpg" />
+  </section>
+</section>
+
+<section>
+  <h2>Питання?</h2>
+</section>
